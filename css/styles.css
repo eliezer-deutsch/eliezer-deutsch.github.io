@@ -34,6 +34,20 @@
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+
+/* ===== מערכת אייקונים (SVG sprite) ===== */
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.ico {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ico-inline { vertical-align: -.16em; }
 body {
   font-family: 'Heebo', 'Segoe UI', sans-serif;
   background: var(--white);
@@ -157,10 +171,14 @@ section { scroll-margin-top: calc(var(--nav-h) + 26px); }
   margin-top: 10px;
   background: var(--brand);
   color: var(--white);
-  text-align: center;
   border-radius: 11px;
   padding: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
 }
+.mobile-cta .ico { width: 1.2em; height: 1.2em; }
 
 /* ===== Hero ===== */
 header {
@@ -244,7 +262,14 @@ h1 span {
   position: relative;
   overflow: hidden;
 }
-.cta span { position: relative; z-index: 2; }
+.cta span {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+}
+.cta .ico { width: 1.15em; height: 1.15em; stroke-width: 1.6; }
 .cta::before, .send-btn::before {
   content: "";
   position: absolute;
@@ -296,14 +321,23 @@ h1 span {
   width: max-content;
   animation: tickerMove 32s linear infinite;
 }
-.ticker-track span {
+.ticker-group {
   white-space: nowrap;
+  display: flex;
+  align-items: center;
   font-weight: 800;
   font-size: .95rem;
   color: var(--ink);
   padding: 9px 0;
   letter-spacing: .02em;
 }
+.tk {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding-inline-end: 30px;
+}
+.tk .ico { width: 1.15em; height: 1.15em; stroke-width: 1.6; }
 @keyframes tickerMove { to { transform: translateX(50%); } }
 
 /* ===== רצועות רקע וגלים ===== */
@@ -343,7 +377,14 @@ h1 span {
   transition: transform .2s, box-shadow .2s;
 }
 .stat:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-.stat-ico { font-size: 1.5rem; display: block; margin-bottom: 2px; }
+.stat-ico {
+  width: 27px;
+  height: 27px;
+  display: block;
+  margin: 0 auto 7px;
+  color: var(--brand);
+  stroke-width: 1.6;
+}
 .stat b {
   display: block;
   font-size: 2.05rem;
@@ -409,9 +450,10 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.75rem;
+  color: var(--brand-dark);
   transition: transform .25s;
 }
+.card .icon .ico { width: 28px; height: 28px; stroke-width: 1.6; }
 .card:hover .icon { transform: scale(1.12) rotate(-7deg); }
 .card h3 { font-size: 1.15rem; font-weight: 800; margin: 12px 0 6px; }
 .card p { color: var(--muted); font-size: .95rem; }
@@ -476,7 +518,8 @@ h2 {
   line-height: 1;
 }
 .quote p { font-size: .98rem; margin-bottom: 16px; flex: 1; } /* דוחף את שם הממליץ לתחתית — גובה אחיד בכל הכרטיסים */
-.stars { color: #f2b200; letter-spacing: 2px; margin-bottom: 6px; text-shadow: 0 1px 0 rgba(180, 119, 31, .25); }
+.stars { color: #f2b200; margin-bottom: 8px; display: flex; gap: 3px; }
+.stars .ico { width: 17px; height: 17px; fill: currentColor; stroke: none; }
 .quote-footer { display: flex; align-items: center; gap: 12px; }
 .avatar {
   width: 40px; height: 40px;
@@ -555,7 +598,15 @@ textarea { resize: vertical; min-height: 90px; }
   position: relative;
   overflow: hidden;
 }
-.send-btn span { position: relative; z-index: 2; }
+.send-btn span {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.send-btn .ico { width: 1.1em; height: 1.1em; stroke-width: 1.6; }
 .send-btn:hover { transform: translateY(-2px); box-shadow: 0 11px 26px rgba(180, 119, 31, .5); }
 .send-btn:active { transform: translateY(0) scale(.99); }
 .form-note { text-align: center; color: var(--muted); font-size: .8rem; margin-top: 14px; }
@@ -628,11 +679,26 @@ textarea { resize: vertical; min-height: 90px; }
   border-radius: 50%;
   animation: spin .7s linear infinite;
 }
-.step.done .step-ico::after { content: "✓"; color: #2e6b33; font-size: 1.1rem; }
-.step.fail .step-ico::after { content: "✗"; color: #b3372f; font-size: 1.1rem; }
 @keyframes spin { to { transform: rotate(360deg); } }
-.modal .emoji { font-size: 3.4rem; line-height: 1; margin-bottom: 12px; animation: emojiPop .4s cubic-bezier(.2, .7, .3, 1.4); }
-@keyframes emojiPop { from { transform: scale(.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.step-mark { display: none; width: 17px; height: 17px; stroke-width: 2.7; }
+.step.done .step-mark, .step.fail .step-mark { display: block; }
+.step.done .step-mark { color: #2e6b33; }
+.step.fail .step-mark { color: #b3372f; }
+.result-ico {
+  display: block;
+  width: 128px;
+  height: 80px;
+  margin: 0 auto 14px;
+  color: #b3372f;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: icoPop .4s cubic-bezier(.2, .7, .3, 1.4);
+}
+.result-ico.muted { color: var(--muted); width: 74px; height: 74px; stroke-width: 1.5; }
+@keyframes icoPop { from { transform: scale(.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 #resultView h3 { font-size: 1.35rem; font-weight: 900; margin-bottom: 10px; }
 #resultView p { color: var(--muted); font-size: 1.02rem; min-height: 3.2em; }
 .counter-line { font-size: .82rem; color: var(--brand-dark); font-weight: 700; margin-top: 10px; }
@@ -662,7 +728,6 @@ textarea { resize: vertical; min-height: 90px; }
   border-radius: 50%;
   background: #25d366;
   color: var(--white);
-  font-size: 1.7rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -671,9 +736,12 @@ textarea { resize: vertical; min-height: 90px; }
   transition: transform .15s;
 }
 .chat-float:hover { transform: scale(1.09); }
+.chat-float .ico { width: 26px; height: 26px; stroke-width: 1.8; }
 .chat-tip {
   position: absolute;
-  right: calc(100% + 10px);
+  /* הכפתור צמוד לקצה השמאלי — התווית חייבת לצאת לצידו הפנימי, אחרת היא מחוץ למסך */
+  left: calc(100% + 10px);
+  right: auto;
   top: 50%;
   transform: translateY(-50%);
   background: var(--ink);
@@ -698,10 +766,11 @@ textarea { resize: vertical; min-height: 90px; }
   border: none;
   background: var(--white);
   color: var(--brand);
-  font-size: 1.2rem;
-  font-weight: 900;
   cursor: pointer;
   box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   opacity: 0;
   pointer-events: none;
   transform: translateY(10px);
@@ -709,6 +778,77 @@ textarea { resize: vertical; min-height: 90px; }
 }
 .to-top.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
 .to-top:hover { color: var(--brand-dark); }
+.to-top .ico { width: 21px; height: 21px; stroke-width: 2.2; }
+
+/* ===== חלונית "ידעתם?" ===== */
+.factpop {
+  position: fixed;
+  bottom: 96px;
+  z-index: 46;
+  width: min(340px, calc(100vw - 44px));
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--white);
+  border: 1px solid #f0e4cd;
+  border-inline-start: 4px solid var(--brand);
+  border-radius: 16px;
+  padding: 15px 17px;
+  box-shadow: 0 16px 42px rgba(43, 32, 19, .2);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  right: 22px;
+  /* מיקום חנייה מחוץ למסך כברירת מחדל — בלעדיו הכניסה הראשונה רק דוהה במקום להחליק */
+  transform: translateX(calc(100% + 46px));
+  transition: opacity .4s ease, transform .55s cubic-bezier(.2, .8, .3, 1), visibility .4s;
+}
+.factpop.side-right { right: 22px; left: auto; transform: translateX(calc(100% + 46px)); }
+.factpop.side-left { left: 22px; right: auto; transform: translateX(calc(-100% - 46px)); }
+.factpop.show { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
+/* מוחל ע"י ה-JS רק בזמן החלפת הצד, כדי שהחנייה תיקבע מיידית ולא תיווצר אנימציה באמצע המסך */
+.factpop.no-anim { transition: none !important; }
+.factpop-ico {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #fdf3e3, #f2dcb4);
+  box-shadow: inset 0 0 0 1px rgba(180, 119, 31, .2);
+  color: var(--brand-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.factpop-ico .ico { width: 21px; height: 21px; stroke-width: 1.7; }
+.factpop-body { padding-inline-end: 16px; }
+.factpop-eyebrow {
+  display: block;
+  color: var(--brand);
+  font-weight: 800;
+  font-size: .74rem;
+  letter-spacing: .12em;
+  margin-bottom: 3px;
+}
+.factpop-text { font-size: .92rem; line-height: 1.5; color: var(--ink); }
+.factpop-x {
+  position: absolute;
+  top: 9px;
+  inset-inline-end: 9px;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s, color .15s;
+}
+.factpop-x:hover { background: var(--cream); color: var(--ink); }
+.factpop-x .ico { width: 14px; height: 14px; stroke-width: 2.2; }
 
 /* ===== פוטר ===== */
 footer {
@@ -741,6 +881,17 @@ footer img { border-radius: 10px; background: var(--white); }
   .timeline { grid-template-columns: 1fr 1fr; gap: 26px 14px; }
   .timeline::before { display: none; }
 }
+@media (max-width: 560px) {
+  /* החלונית נצמדת לתחתית ונכנסת מלמטה — אין מקום להחלקה מהצד */
+  .factpop, .factpop.side-left, .factpop.side-right {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    bottom: 90px;
+    transform: translateY(26px);
+  }
+  .factpop.show { transform: translateY(0); }
+}
 @media (max-width: 520px) {
   .timeline { grid-template-columns: 1fr; }
   .brand span b { display: none; }
@@ -749,9 +900,10 @@ footer img { border-radius: 10px; background: var(--white); }
 /* ===== העדפת צמצום תנועה ===== */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .hero-in, .modal, .modal .emoji, .logo { animation: none !important; }
+  .hero-in, .modal, .result-ico, .logo { animation: none !important; }
   .ticker-track { animation: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .card:hover, .quote:hover, .stat:hover, .cta:hover, .nav-cta:hover, .send-btn:hover, .chat-float:hover { transform: none; }
   .cta::before, .send-btn::before { display: none; }
+  .factpop, .factpop.side-left, .factpop.side-right { transform: none; transition: opacity .3s ease, visibility .3s; }
 }

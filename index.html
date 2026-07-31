@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#B4771F">
-<title>אליעזר דויטש · תכנון ובנייה</title>
-<meta name="description" content="אליעזר דויטש — תכנון ובנייה. פרויקטים · יזמות · ביצוע. הזמינו עבודה עוד היום!">
-<meta property="og:title" content="אליעזר דויטש · תכנון ובנייה">
+<title>אליעזר דויטש ובניו · תכנון ובנייה</title>
+<meta name="description" content="אליעזר דויטש ובניו — תכנון ובנייה. פרויקטים · יזמות · ביצוע. הזמינו עבודה עוד היום!">
+<meta property="og:title" content="אליעזר דויטש ובניו · תכנון ובנייה">
 <meta property="og:description" content="פרויקטים · יזמות · ביצוע. הזמינו עבודה עוד היום!">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://eliezer-deutsch.github.io/">
@@ -17,6 +17,39 @@
 </head>
 <body>
 
+<!-- ===== ספריית אייקוני SVG (מוסתרת; נצרכת דרך <use>) ===== -->
+<svg class="sprite" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-hammer" viewBox="0 0 24 24"><g transform="translate(3.3 2.3) rotate(-35 12 12)"><rect x="4" y="3" width="16" height="5.5" rx="1.6"/><path d="M12 8.5V21"/></g></symbol>
+  <symbol id="i-wood" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="4.6" rx="1.3"/><rect x="2.5" y="14.4" width="19" height="4.6" rx="1.3"/><path d="M6 7.3h3M13.5 7.3h4M6 16.7h5M16 16.7h2"/></symbol>
+  <symbol id="i-brick" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="1.4"/><path d="M3 9.8h18M3 14.2h18M9 5.5v4.3M15.5 5.5v4.3M6 9.8v4.4M12 9.8v4.4M18 9.8v4.4M9 14.2v4.3M15.5 14.2v4.3"/></symbol>
+  <symbol id="i-trowel" viewBox="0 0 24 24"><path d="M3 12.6 10.8 4.8l7.8 7.8-7.8 5.4z"/><path d="M14.2 8.2 18.6 3.8"/><rect x="17.4" y="1.4" width="4.4" height="2.6" rx="1.3" transform="rotate(45 19.6 2.7)"/></symbol>
+  <symbol id="i-tiles" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></symbol>
+  <symbol id="i-pipe" viewBox="0 0 24 24"><path d="M4.5 8h5.5a2.5 2.5 0 0 1 2.5 2.5v3A2.5 2.5 0 0 0 15 16h4.5"/><rect x="2" y="5.4" width="3" height="5.2" rx="1"/><rect x="19" y="13.4" width="3" height="5.2" rx="1"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13.6 2.5 5.6 13.4h5.3l-1 8.1 8.5-11.2h-5.5z"/></symbol>
+  <symbol id="i-roller" viewBox="0 0 24 24"><rect x="2.6" y="3.8" width="12" height="5.2" rx="1.6"/><path d="M14.6 6.4h3.6a1.8 1.8 0 0 1 1.8 1.8v2.2a1.8 1.8 0 0 1-1.8 1.8H12v2.6"/><rect x="10" y="14.8" width="4" height="6.2" rx="1.3"/></symbol>
+  <symbol id="i-press" viewBox="0 0 24 24"><path d="M12 2.6v5.4M8.6 5.4 12 8.4l3.4-3M4 12h16M12 21.4V16M8.6 18.6 12 15.6l3.4 3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M12 6.8V12.4l3.4 2.1"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.6M12 19.4V22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M2 12h2.6M19.4 12H22M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 2.8c0 0 6.2 6.6 6.2 10.4A6.2 6.2 0 0 1 5.8 13.2C5.8 9.4 12 2.8 12 2.8z"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><rect x="2.5" y="6.8" width="19" height="13" rx="2.6"/><path d="M8.4 6.8 10.2 4.2h3.6l1.8 2.6"/><circle cx="12" cy="13.3" r="3.6"/></symbol>
+  <symbol id="i-ruler" viewBox="0 0 24 24"><rect x="2.5" y="8" width="19" height="8" rx="1.6"/><path d="M6.6 8v3.2M10.4 8v4.4M14.2 8v3.2M18 8v4.4"/></symbol>
+  <symbol id="i-house" viewBox="0 0 24 24"><path d="M3.2 10.6 12 3.4l8.8 7.2"/><path d="M5.4 9.4V20.6h13.2V9.4"/><path d="M9.6 20.6v-6.2h4.8v6.2"/></symbol>
+  <symbol id="i-toolbox" viewBox="0 0 24 24"><rect x="2.5" y="8" width="19" height="11.6" rx="2.2"/><path d="M8.4 8V6.3a1.8 1.8 0 0 1 1.8-1.8h3.6a1.8 1.8 0 0 1 1.8 1.8V8"/><path d="M2.5 13.2h6.6M14.9 13.2h6.6"/><rect x="9.1" y="11.4" width="5.8" height="3.6" rx="1.1"/></symbol>
+  <symbol id="i-screw" viewBox="0 0 24 24"><path d="M12 3.4 15.6 5.5v4.2L12 11.8 8.4 9.7V5.5z"/><path d="M12 11.8v8.8"/><path d="M10 14h4M10 16.5h4M10 19h4"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.9"/><path d="M11 6.7 6.4 20.6M13 6.7l4.6 13.9"/><path d="M8.4 15.6a7.6 7.6 0 0 0 7.2 0"/></symbol>
+  <symbol id="i-helmet" viewBox="0 0 24 24"><path d="M4.6 16.4v-1.6a7.4 7.4 0 0 1 14.8 0v1.6"/><path d="M9.6 15V8.9a1.6 1.6 0 0 1 1.6-1.6h1.6a1.6 1.6 0 0 1 1.6 1.6V15"/><rect x="2" y="16.4" width="20" height="3.2" rx="1.6"/></symbol>
+  <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="4.4" y="4.6" width="15.2" height="16" rx="2.6"/><rect x="8.8" y="2.4" width="6.4" height="4.2" rx="1.6"/><path d="M8.6 11.4h6.8M8.6 15.2h4.4"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21.2 3.2 2.6 10.9l7.7 2.6 2.5 7.7z"/><path d="M10.3 13.5 21.2 3.2"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20.6 12.2c0 3.9-3.8 7.1-8.5 7.1-1 0-2-.14-2.9-.4L3.4 20.8l1.7-4.4a6.6 6.6 0 0 1-1.6-4.2c0-3.9 3.8-7.1 8.6-7.1s8.5 3.2 8.5 7.1z"/></symbol>
+  <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19.6V5M5.6 11.4 12 5l6.4 6.4"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.45L12 17.45 6.2 20.5l1.1-6.45-4.7-4.6 6.5-.95z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.8 9.5 17.8 19.5 6.8"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M12 3a6.2 6.2 0 0 1 3.7 11.2c-.75.6-1.2 1.4-1.2 2.3h-5c0-.9-.45-1.7-1.2-2.3A6.2 6.2 0 0 1 12 3z"/><path d="M9.8 19.2h4.4M10.6 21.6h2.8"/></symbol>
+  <symbol id="i-denied" viewBox="0 0 100 100"><g transform="rotate(-13 50 50)"><rect x="7" y="29" width="86" height="42" rx="7" fill="none" stroke="currentColor" stroke-width="4.5"/><rect x="13.5" y="35.5" width="73" height="29" rx="3.5" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><text x="50" y="58.5" text-anchor="middle" font-size="21" font-weight="900" fill="currentColor" stroke="none" font-family="Heebo, sans-serif">נדחה</text></g></symbol>
+  <symbol id="i-phone-off" viewBox="0 0 24 24"><path d="M15.6 13.9a13.6 13.6 0 0 1-5.5-5.5l1.8-1.8-2.6-4H5.1a2 2 0 0 0-2 2.2 17.6 17.6 0 0 0 3.5 8.6"/><path d="M9.4 16.6a17.6 17.6 0 0 0 8.4 3.3 2 2 0 0 0 2.2-2v-4.2l-4-2.6"/><path d="M3.2 3.2 20.8 20.8"/></symbol>
+</defs></svg>
+
 <div class="tape"></div>
 
 <!-- ניווט עליון -->
@@ -24,7 +57,7 @@
   <div class="nav-inner">
     <a class="brand" href="#top">
       <img src="assets/favicon.png" alt="" width="34" height="34">
-      <span>אליעזר דויטש <b>· תכנון ובנייה</b></span>
+      <span>אליעזר דויטש ובניו <b>· תכנון ובנייה</b></span>
     </a>
     <div class="nav-links">
       <a href="#services">שירותים</a>
@@ -40,19 +73,19 @@
     <a href="#services">שירותים</a>
     <a href="#process">איך זה עובד</a>
     <a href="#reviews">המלצות</a>
-    <a class="mobile-cta" href="#order">🏗️ להזמנת עבודה</a>
+    <a class="mobile-cta" href="#order"><svg class="ico" aria-hidden="true"><use href="#i-helmet"/></svg>להזמנת עבודה</a>
   </div>
 </nav>
 
 <!-- Hero -->
 <header id="top">
   <div class="hero-content">
-    <div class="logo-wrap hero-in"><img class="logo" src="assets/logo.jpg" width="900" height="899" alt="לוגו ED CONSTRACTION — אליעזר דויטש תכנון ובנייה"></div>
-    <h1 class="hero-in d1">אליעזר דויטש <span>· תכנון ובנייה</span></h1>
+    <div class="logo-wrap hero-in"><img class="logo" src="assets/logo.jpg" width="900" height="899" alt="לוגו ED CONSTRACTION — אליעזר דויטש ובניו תכנון ובנייה"></div>
+    <h1 class="hero-in d1">אליעזר דויטש ובניו <span>· תכנון ובנייה</span></h1>
     <div class="tagline hero-in d2">פרויקטים · יזמות · ביצוע</div>
     <div class="est hero-in d3">מלווים אתכם מהחלום ועד המפתח — משנת 1999</div>
     <br>
-    <a class="cta hero-in d4" href="#order"><span>🏗️ להזמנת עבודה</span></a>
+    <a class="cta hero-in d4" href="#order"><span><svg class="ico" aria-hidden="true"><use href="#i-helmet"/></svg>להזמנת עבודה</span></a>
   </div>
   <!-- סקייליין בנייה -->
   <svg class="skyline" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true">
@@ -83,8 +116,36 @@
 <!-- פס נע בסגנון סרט אזהרה -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span>שיפוצים 🔨 עבודה בעץ 🪵 תוספות בנייה 🧱 עבודות גבס 🏗️ ריצוף ואבן ⚒️ אינסטלציה 🔧 חשמל 💡 צביעה 🎨 הלחצות 💪 דחיות ⏳ מערכות סולאריות ☀️ דודי מים 🚿 צילום בכל צעד 📸 שיפוצים 🔨 עבודה בעץ 🪵 תוספות בנייה 🧱 עבודות גבס 🏗️ ריצוף ואבן ⚒️ אינסטלציה 🔧 חשמל 💡 צביעה 🎨 הלחצות 💪 דחיות ⏳ מערכות סולאריות ☀️ דודי מים 🚿 צילום בכל צעד 📸</span>
-    <span>שיפוצים 🔨 עבודה בעץ 🪵 תוספות בנייה 🧱 עבודות גבס 🏗️ ריצוף ואבן ⚒️ אינסטלציה 🔧 חשמל 💡 צביעה 🎨 הלחצות 💪 דחיות ⏳ מערכות סולאריות ☀️ דודי מים 🚿 צילום בכל צעד 📸 שיפוצים 🔨 עבודה בעץ 🪵 תוספות בנייה 🧱 עבודות גבס 🏗️ ריצוף ואבן ⚒️ אינסטלציה 🔧 חשמל 💡 צביעה 🎨 הלחצות 💪 דחיות ⏳ מערכות סולאריות ☀️ דודי מים 🚿 צילום בכל צעד 📸</span>
+    <span class="ticker-group">
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-hammer"/></svg>שיפוצים</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-wood"/></svg>עבודה בעץ</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-brick"/></svg>תוספות בנייה</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-trowel"/></svg>עבודות גבס</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-tiles"/></svg>ריצוף ואבן</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-pipe"/></svg>אינסטלציה</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-bolt"/></svg>חשמל</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-roller"/></svg>צביעה</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-press"/></svg>הלחצות</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>דחיות</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-sun"/></svg>מערכות סולאריות</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-drop"/></svg>דודי מים</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-camera"/></svg>צילום בכל צעד</span>
+    </span>
+    <span class="ticker-group">
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-hammer"/></svg>שיפוצים</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-wood"/></svg>עבודה בעץ</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-brick"/></svg>תוספות בנייה</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-trowel"/></svg>עבודות גבס</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-tiles"/></svg>ריצוף ואבן</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-pipe"/></svg>אינסטלציה</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-bolt"/></svg>חשמל</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-roller"/></svg>צביעה</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-press"/></svg>הלחצות</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>דחיות</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-sun"/></svg>מערכות סולאריות</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-drop"/></svg>דודי מים</span>
+      <span class="tk"><svg class="ico" aria-hidden="true"><use href="#i-camera"/></svg>צילום בכל צעד</span>
+    </span>
   </div>
 </div>
 
@@ -92,10 +153,10 @@
   <div class="container">
 
     <div class="stats reveal">
-      <div class="stat"><span class="stat-ico">📏</span><b class="counter" data-target="12847">0</b><small>מ"ר בנויים</small></div>
-      <div class="stat"><span class="stat-ico">🏘️</span><b class="counter" data-target="87">0</b><small>פרויקטים שהושלמו</small></div>
-      <div class="stat"><span class="stat-ico">🛠️</span><b class="counter" data-target="27">0</b><small>שנות ניסיון</small></div>
-      <div class="stat"><span class="stat-ico">🔩</span><b class="counter" data-target="9999" data-suffix="+">0</b><small>ברגים מפוזרים באתר</small></div>
+      <div class="stat"><svg class="ico stat-ico" aria-hidden="true"><use href="#i-ruler"/></svg><b class="counter" data-target="12847">0</b><small>מ"ר בנויים</small></div>
+      <div class="stat"><svg class="ico stat-ico" aria-hidden="true"><use href="#i-house"/></svg><b class="counter" data-target="87">0</b><small>פרויקטים שהושלמו</small></div>
+      <div class="stat"><svg class="ico stat-ico" aria-hidden="true"><use href="#i-toolbox"/></svg><b class="counter" data-target="27">0</b><small>שנות ניסיון</small></div>
+      <div class="stat"><svg class="ico stat-ico" aria-hidden="true"><use href="#i-screw"/></svg><b class="counter" data-target="9999" data-suffix="+">0</b><small>ברגים מפוזרים באתר</small></div>
     </div>
 
     <section id="services">
@@ -104,32 +165,32 @@
       <p class="sub reveal">מקצועיות ללא פשרות, גם אם תתחננו</p>
       <div class="cards">
         <div class="card reveal">
-          <div class="icon">📐</div>
+          <div class="icon"><svg class="ico" aria-hidden="true"><use href="#i-compass"/></svg></div>
           <h3>תכנון אדריכלי</h3>
           <p>תכנון מלא של הבית, התוספת או השיפוץ — שרטוטים, היתרים וליווי מול הרשויות</p>
         </div>
         <div class="card reveal">
-          <div class="icon">🔨</div>
+          <div class="icon"><svg class="ico" aria-hidden="true"><use href="#i-hammer"/></svg></div>
           <h3>שיפוצים כלליים</h3>
           <p>שיפוץ מהיסוד ברמת גימור גבוהה — לוח זמנים מסודר ועבודה נקייה</p>
         </div>
         <div class="card reveal">
-          <div class="icon">🪵</div>
+          <div class="icon"><svg class="ico" aria-hidden="true"><use href="#i-wood"/></svg></div>
           <h3>עבודה בעץ</h3>
           <p>פרגולות, דקים וכל עבודות הנגרות — בהובלת צוות הנגרים הצעיר שלנו</p>
         </div>
         <div class="card reveal">
-          <div class="icon">🧱</div>
+          <div class="icon"><svg class="ico" aria-hidden="true"><use href="#i-brick"/></svg></div>
           <h3>הזזת קירות</h3>
           <p>פותחים חלל, סוגרים חדר. הקיר שאשתך רצתה להזיז? אנחנו מבינים אותך. באמת</p>
         </div>
         <div class="card reveal">
-          <div class="icon">👷</div>
+          <div class="icon"><svg class="ico" aria-hidden="true"><use href="#i-helmet"/></svg></div>
           <h3>ייעוץ הנדסי</h3>
           <p>בשיטת הלחצה והפחדה שמבטיחה תוצאות חזקות מידי</p>
         </div>
         <div class="card reveal">
-          <div class="icon">📋</div>
+          <div class="icon"><svg class="ico" aria-hidden="true"><use href="#i-clipboard"/></svg></div>
           <h3>ליווי פרויקטים</h3>
           <p>ניהול צמוד מהתכנון ועד מסירת המפתח — (ללא) שקט נפשי לאורך כל הדרך</p>
         </div>
@@ -183,12 +244,16 @@
       <p class="sub reveal">כמה מילים ממי שכבר בנה איתנו</p>
       <div class="quotes">
         <div class="quote reveal">
-          <div class="stars">★★★★★</div>
+          <div class="stars" aria-label="חמישה כוכבים מתוך חמישה">
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+          </div>
           <p>פרפקציוניזם בלי פשרות, כל השאר פחות חשוב</p>
           <div class="quote-footer"><span class="avatar">ט</span><span class="who">טובי דויטש</span></div>
         </div>
         <div class="quote reveal">
-          <div class="stars">★★★★★</div>
+          <div class="stars" aria-label="חמישה כוכבים מתוך חמישה">
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+          </div>
           <p>אבא שלי בונה קירות הכי טוב</p>
           <div class="quote-footer"><span class="avatar">מ</span><span class="who">מיכאל דויטש</span></div>
         </div>
@@ -204,7 +269,7 @@
     <section id="order">
       <span class="eyebrow reveal">מוכנים להתחיל?</span>
       <h2 class="reveal">הזמנת עבודה</h2>
-      <p class="sub reveal">מלאו את הפרטים ואליעזר יחזור אליכם במהירות שיא ⚡</p>
+      <p class="sub reveal">מלאו את הפרטים ואליעזר יחזור אליכם במהירות שיא <svg class="ico ico-inline" aria-hidden="true"><use href="#i-bolt"/></svg></p>
       <div class="form-wrap reveal">
         <form id="orderForm">
           <label for="name">שם מלא</label>
@@ -227,7 +292,7 @@
           <label for="details">פרטים נוספים</label>
           <textarea id="details" name="details" placeholder="ספרו לנו על הפרויקט..."></textarea>
 
-          <button class="send-btn" type="submit"><span>📨 שלח בקשה</span></button>
+          <button class="send-btn" type="submit"><span><svg class="ico" aria-hidden="true"><use href="#i-send"/></svg>שלח בקשה</span></button>
           <p class="form-note">* הפרטים נשמרים בדיסקרטיות מלאה ולא יועברו לגורם שלישי</p>
         </form>
       </div>
@@ -243,25 +308,42 @@
       <div class="steps" id="steps"></div>
     </div>
     <div id="resultView" style="display:none">
-      <div class="emoji" id="resultEmoji">🤷‍♂️</div>
+      <svg class="result-ico" id="resultIco" aria-hidden="true"><use href="#i-denied" id="resultIcoUse"/></svg>
       <h3 id="resultTitle">אשתי לא מרשה לי</h3>
       <p id="resultText"></p>
       <div class="counter-line" id="convinceCounter"></div>
       <div class="modal-btns">
         <button class="btn-convince" id="btnConvince">נסה לשכנע אותה</button>
-        <button class="btn-giveup" id="btnGiveup">ויתרתי 😔</button>
+        <button class="btn-giveup" id="btnGiveup">ויתרתי</button>
       </div>
     </div>
   </div>
 </div>
 
+<!-- חלונית "ידעתם?" -->
+<aside class="factpop" id="factPop" aria-live="polite" aria-label="ידעתם?">
+  <button class="factpop-x" id="factPopClose" aria-label="סגירת החלונית">
+    <svg class="ico" aria-hidden="true"><use href="#i-x"/></svg>
+  </button>
+  <span class="factpop-ico"><svg class="ico" aria-hidden="true"><use href="#i-bulb"/></svg></span>
+  <div class="factpop-body">
+    <span class="factpop-eyebrow">ידעתם?</span>
+    <p class="factpop-text" id="factPopText"></p>
+  </div>
+</aside>
+
 <!-- כפתורים צפים -->
-<a class="chat-float" href="#order" aria-label="השאירו פרטים">💬<span class="chat-tip">דברו איתנו</span></a>
-<button class="to-top" id="toTop" aria-label="חזרה למעלה">↑</button>
+<a class="chat-float" href="#order" aria-label="השאירו פרטים">
+  <svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg>
+  <span class="chat-tip">דברו איתנו</span>
+</a>
+<button class="to-top" id="toTop" aria-label="חזרה למעלה">
+  <svg class="ico" aria-hidden="true"><use href="#i-arrow-up"/></svg>
+</button>
 
 <footer>
   <img src="assets/favicon.png" alt="" width="44" height="44">
-  <div class="f-name">אליעזר דויטש · תכנון ובנייה</div>
+  <div class="f-name">אליעזר דויטש ובניו · תכנון ובנייה</div>
   <div class="f-sub">ED CONSTRACTION · פרויקטים · יזמות · ביצוע</div>
   <div class="f-bar">© תשפ"ו · את האתר תכנן ובנה: <a href="https://github.com/BeniaBot" target="_blank" rel="noopener">בני הבוט</a></div>
 </footer>

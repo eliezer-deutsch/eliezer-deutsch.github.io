@@ -102,7 +102,8 @@ const resultView = document.getElementById("resultView");
 const stepsBox = document.getElementById("steps");
 const resultText = document.getElementById("resultText");
 const resultTitle = document.getElementById("resultTitle");
-const resultEmoji = document.getElementById("resultEmoji");
+const resultIco = document.getElementById("resultIco");
+const resultIcoUse = document.getElementById("resultIcoUse");
 const convinceCounter = document.getElementById("convinceCounter");
 const btnConvince = document.getElementById("btnConvince");
 const btnGiveup = document.getElementById("btnGiveup");
@@ -132,7 +133,8 @@ function showResult() {
   }
   if (usedExcuses.length >= excuses.length && resultText.textContent === finalExcuse) {
     resultTitle.textContent = "זהו. באמת שאין טעם.";
-    resultEmoji.textContent = "📵";
+    resultIcoUse.setAttribute("href", "#i-phone-off");
+    resultIco.classList.add("muted");
     btnConvince.disabled = true;
     btnConvince.textContent = "אין טעם. באמת.";
     btnConvince.style.opacity = ".5";
@@ -145,7 +147,8 @@ function runProcessing() {
   const stepEls = processingSteps.map(txt => {
     const div = document.createElement("div");
     div.className = "step";
-    div.innerHTML = '<span class="step-ico"></span><span>' + txt + "</span>";
+    div.innerHTML = '<span class="step-ico"><svg class="ico step-mark" aria-hidden="true">'
+      + '<use href="#i-check"></use></svg></span><span>' + txt + "</span>";
     stepsBox.appendChild(div);
     return div;
   });
@@ -164,6 +167,7 @@ function runProcessing() {
       el.classList.remove("active");
       const isLast = i === stepEls.length - 1;
       el.classList.add(isLast ? "fail" : "done");
+      el.querySelector(".step-mark use").setAttribute("href", isLast ? "#i-x" : "#i-check");
       if (isLast) {
         stepTimers.push(setTimeout(showResult, 650));
       }
@@ -176,7 +180,8 @@ document.getElementById("orderForm").addEventListener("submit", function (e) {
   attempts = 0;
   usedExcuses = [];
   resultTitle.textContent = "אשתי לא מרשה לי";
-  resultEmoji.textContent = "🤷‍♂️";
+  resultIcoUse.setAttribute("href", "#i-denied");
+  resultIco.classList.remove("muted");
   btnConvince.disabled = false;
   btnConvince.textContent = "נסה לשכנע אותה";
   btnConvince.style.opacity = "";
@@ -210,3 +215,93 @@ overlay.addEventListener("click", (e) => {
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && overlay.classList.contains("open")) closeOverlay();
 });
+
+// ===== חלונית "ידעתם?" — עובדות שנכנסות לסירוגין משני צידי המסך =====
+(function () {
+  const facts = [
+    "בכל ריתוך נשרפת חולצת עבודה — ולכן הלקוח מממן חדשה. סעיף קבוע בהצעת המחיר",
+    "כל העובדים שלנו מתחת לגיל 18. בתכל'ס, רובם גם מתחת לגיל 8",
+    "מתקינים מצברים ומערכות סולאריות לחשמל כשר לשבת, מים חמים לשבת ומגוון פתרונות הלכתיים",
+    "השותף הצעיר בחברה, מיכאל דויטש, בן 4. אחראי על מחלקת הפירוק",
+    "כל שלב בעבודה מתועד בצילום. גם שלבים שאף אחד לא ביקש שיתועדו",
+  ];
+
+  const pop = document.getElementById("factPop");
+  const txt = document.getElementById("factPopText");
+  const closeBtn = document.getElementById("factPopClose");
+  if (!pop || !txt || !closeBtn) return;
+
+  const FIRST_DELAY = 5500;  /* השהיה לפני החלונית הראשונה */
+  const VISIBLE = 9500;      /* כמה זמן היא נשארת */
+  const GAP = 11000;         /* מרווח בין חלוניות */
+
+  let idx = 0, showTimer = null, hideTimer = null, stopped = false;
+
+  function schedule(fn, ms) {
+    clearTimeout(showTimer);
+    showTimer = setTimeout(fn, ms);
+  }
+
+  function show() {
+    if (stopped) return;
+    /* לא מתחרים במודאל של הטופס — ממתינים עד שהוא נסגר */
+    if (overlay.classList.contains("open") || document.hidden) {
+      schedule(show, 4000);
+      return;
+    }
+    txt.textContent = facts[idx % facts.length];
+    /* מנטרלים מעברים בזמן החלפת הצד: אחרת ה-transform של מיקום החנייה מתחיל להשתנות
+       באנימציה, וה-show "חוטף" אותה באמצע — והחלונית נכנסת מאמצע המסך במקום מהקצה */
+    pop.classList.add("no-anim");
+    pop.classList.toggle("side-right", idx % 2 === 0);
+    pop.classList.toggle("side-left", idx % 2 === 1);
+    void pop.offsetWidth;
+    pop.classList.remove("no-anim");
+    void pop.offsetWidth;
+    pop.classList.add("show");
+    idx++;
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(hide, VISIBLE);
+  }
+
+  function hide() {
+    pop.classList.remove("show");
+    if (!stopped) schedule(show, GAP);
+  }
+
+  function stop() {
+    stopped = true;
+    clearTimeout(showTimer);
+    clearTimeout(hideTimer);
+    pop.classList.remove("show");
+  }
+
+  /* ריחוף משהה את הסגירה האוטומטית — רק במכשירים עם עכבר אמיתי.
+     במגע, mouseenter נורה בהקשה ו-mouseleave עלול לא להגיע לעולם, ואז החלונית
+     הייתה נתקעת על המסך לנצח; לכן גם ההשהיה מוגבלת בזמן. */
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    pop.addEventListener("mouseenter", () => {
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(hide, 30000);
+    });
+    pop.addEventListener("mouseleave", () => {
+      clearTimeout(hideTimer);
+      if (!stopped && pop.classList.contains("show")) {
+        hideTimer = setTimeout(hide, 3500);
+      }
+    });
+  }
+
+  closeBtn.addEventListener("click", stop);
+
+  /* כשהמודאל נפתח — מסתירים מיד ומחכים בסבלנות */
+  new MutationObserver(() => {
+    if (overlay.classList.contains("open") && pop.classList.contains("show")) {
+      clearTimeout(hideTimer);
+      pop.classList.remove("show");
+      if (!stopped) schedule(show, GAP);
+    }
+  }).observe(overlay, { attributes: true, attributeFilter: ["class"] });
+
+  schedule(show, FIRST_DELAY);
+})();
