@@ -216,26 +216,26 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && overlay.classList.contains("open")) closeOverlay();
 });
 
-// ===== חלונית "ידעתם?" — עובדות שנכנסות לסירוגין משני צידי המסך =====
+// ===== בועת דיבור יזומה — עובדות על העסק, כל אחת מופיעה פעם אחת בלבד =====
 (function () {
   const facts = [
     "בכל ריתוך נשרפת חולצת עבודה — ולכן הלקוח מממן חדשה. סעיף קבוע בהצעת המחיר",
-    "כל העובדים שלנו מתחת לגיל 18. בתכל'ס, רובם גם מתחת לגיל 8",
-    "מתקינים מצברים ומערכות סולאריות לחשמל כשר לשבת, מים חמים לשבת ומגוון פתרונות הלכתיים",
+    "כל העובדים שלנו מתחת לגיל 18. בתכל'ס, גם מתחת לגיל 8",
+    "מתקינים מצברים ומערכות סולאריות — ומגוון פתרונות הלכתיים לחשמל ולמים בשבת",
     "השותף הצעיר בחברה, מיכאל דויטש, בן 4. אחראי על מחלקת הפירוק",
-    "כל שלב בעבודה מתועד בצילום. גם שלבים שאף אחד לא ביקש שיתועדו",
   ];
 
   const pop = document.getElementById("factPop");
   const txt = document.getElementById("factPopText");
   const closeBtn = document.getElementById("factPopClose");
+  const fab = document.querySelector(".chat-float");
   if (!pop || !txt || !closeBtn) return;
 
-  const FIRST_DELAY = 5500;  /* השהיה לפני החלונית הראשונה */
+  const FIRST_DELAY = 5500;  /* השהיה לפני הבועה הראשונה */
   const VISIBLE = 9500;      /* כמה זמן היא נשארת */
-  const GAP = 11000;         /* מרווח בין חלוניות */
+  const GAP = 11000;         /* מרווח בין בועות */
 
-  let idx = 0, showTimer = null, hideTimer = null, stopped = false;
+  let idx = 0, showTimer = null, hideTimer = null, nudgeTimer = null, stopped = false;
 
   function schedule(fn, ms) {
     clearTimeout(showTimer);
@@ -243,22 +243,19 @@ document.addEventListener("keydown", (e) => {
   }
 
   function show() {
-    if (stopped) return;
+    if (stopped || idx >= facts.length) return; /* כל עובדה מוצגת פעם אחת ותו לא */
     /* לא מתחרים במודאל של הטופס — ממתינים עד שהוא נסגר */
     if (overlay.classList.contains("open") || document.hidden) {
       schedule(show, 4000);
       return;
     }
-    txt.textContent = facts[idx % facts.length];
-    /* מנטרלים מעברים בזמן החלפת הצד: אחרת ה-transform של מיקום החנייה מתחיל להשתנות
-       באנימציה, וה-show "חוטף" אותה באמצע — והחלונית נכנסת מאמצע המסך במקום מהקצה */
-    pop.classList.add("no-anim");
-    pop.classList.toggle("side-right", idx % 2 === 0);
-    pop.classList.toggle("side-left", idx % 2 === 1);
-    void pop.offsetWidth;
-    pop.classList.remove("no-anim");
-    void pop.offsetWidth;
+    txt.textContent = facts[idx];
     pop.classList.add("show");
+    if (fab) {
+      fab.classList.add("nudge");
+      clearTimeout(nudgeTimer);
+      nudgeTimer = setTimeout(() => fab.classList.remove("nudge"), 2600);
+    }
     idx++;
     clearTimeout(hideTimer);
     hideTimer = setTimeout(hide, VISIBLE);
@@ -266,14 +263,16 @@ document.addEventListener("keydown", (e) => {
 
   function hide() {
     pop.classList.remove("show");
-    if (!stopped) schedule(show, GAP);
+    if (!stopped && idx < facts.length) schedule(show, GAP);
   }
 
   function stop() {
     stopped = true;
     clearTimeout(showTimer);
     clearTimeout(hideTimer);
+    clearTimeout(nudgeTimer);
     pop.classList.remove("show");
+    if (fab) fab.classList.remove("nudge");
   }
 
   /* ריחוף משהה את הסגירה האוטומטית — רק במכשירים עם עכבר אמיתי.
@@ -294,12 +293,12 @@ document.addEventListener("keydown", (e) => {
 
   closeBtn.addEventListener("click", stop);
 
-  /* כשהמודאל נפתח — מסתירים מיד ומחכים בסבלנות */
+  /* כשהמודאל נפתח — מסתירים מיד ומחכים בסבלנות (בלי לבזבז את העובדה) */
   new MutationObserver(() => {
     if (overlay.classList.contains("open") && pop.classList.contains("show")) {
       clearTimeout(hideTimer);
       pop.classList.remove("show");
-      if (!stopped) schedule(show, GAP);
+      if (!stopped && idx < facts.length) schedule(show, GAP);
     }
   }).observe(overlay, { attributes: true, attributeFilter: ["class"] });
 

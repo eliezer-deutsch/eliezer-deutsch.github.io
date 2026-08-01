@@ -780,75 +780,90 @@ textarea { resize: vertical; min-height: 90px; }
 .to-top:hover { color: var(--brand-dark); }
 .to-top .ico { width: 21px; height: 21px; stroke-width: 2.2; }
 
-/* ===== חלונית "ידעתם?" ===== */
-.factpop {
+/* ===== בועת דיבור יזומה (יוצאת מכפתור הצ'אט) ===== */
+.bubble {
   position: fixed;
-  bottom: 96px;
+  bottom: 92px;
+  left: 22px;
   z-index: 46;
-  width: min(340px, calc(100vw - 44px));
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
+  width: min(310px, calc(100vw - 44px));
   background: var(--white);
-  border: 1px solid #f0e4cd;
-  border-inline-start: 4px solid var(--brand);
-  border-radius: 16px;
-  padding: 15px 17px;
-  box-shadow: 0 16px 42px rgba(43, 32, 19, .2);
+  border-radius: 18px 18px 18px 6px;
+  padding: 14px 16px 15px;
+  box-shadow: 0 18px 45px rgba(43, 32, 19, .22), 0 2px 8px rgba(43, 32, 19, .08);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  right: 22px;
-  /* מיקום חנייה מחוץ למסך כברירת מחדל — בלעדיו הכניסה הראשונה רק דוהה במקום להחליק */
-  transform: translateX(calc(100% + 46px));
-  transition: opacity .4s ease, transform .55s cubic-bezier(.2, .8, .3, 1), visibility .4s;
+  transform-origin: bottom left;
+  transform: scale(.72) translateY(14px);
+  transition: opacity .28s ease, transform .34s cubic-bezier(.34, 1.56, .64, 1), visibility .28s;
 }
-.factpop.side-right { right: 22px; left: auto; transform: translateX(calc(100% + 46px)); }
-.factpop.side-left { left: 22px; right: auto; transform: translateX(calc(-100% - 46px)); }
-.factpop.show { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
-/* מוחל ע"י ה-JS רק בזמן החלפת הצד, כדי שהחנייה תיקבע מיידית ולא תיווצר אנימציה באמצע המסך */
-.factpop.no-anim { transition: none !important; }
-.factpop-ico {
-  width: 38px;
-  height: 38px;
-  flex-shrink: 0;
-  border-radius: 11px;
-  background: linear-gradient(135deg, #fdf3e3, #f2dcb4);
-  box-shadow: inset 0 0 0 1px rgba(180, 119, 31, .2);
-  color: var(--brand-dark);
+/* הזנב שמצביע על כפתור הצ'אט */
+.bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 20px;
+  width: 18px;
+  height: 18px;
+  background: var(--white);
+  border-radius: 0 0 5px 0;
+  transform: rotate(28deg) skewX(-12deg);
+  box-shadow: 3px 3px 8px rgba(43, 32, 19, .07);
+}
+.bubble.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: scale(1) translateY(0);
+}
+.bubble-head {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 9px;
+  margin-bottom: 8px;
 }
-.factpop-ico .ico { width: 21px; height: 21px; stroke-width: 1.7; }
-.factpop-body { padding-inline-end: 16px; }
-.factpop-eyebrow {
-  display: block;
-  color: var(--brand);
+.bubble-avatar { border-radius: 8px; flex-shrink: 0; }
+.bubble-name {
   font-weight: 800;
-  font-size: .74rem;
-  letter-spacing: .12em;
-  margin-bottom: 3px;
+  font-size: .82rem;
+  color: var(--brand-dark);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.factpop-text { font-size: .92rem; line-height: 1.5; color: var(--ink); }
-.factpop-x {
-  position: absolute;
-  top: 9px;
-  inset-inline-end: 9px;
-  width: 26px;
-  height: 26px;
+.bubble-text { font-size: .93rem; line-height: 1.55; color: var(--ink); }
+.bubble-x {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
   border: none;
-  border-radius: 8px;
+  border-radius: 7px;
   background: transparent;
-  color: var(--muted);
+  color: #b3a68d;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background .15s, color .15s;
 }
-.factpop-x:hover { background: var(--cream); color: var(--ink); }
-.factpop-x .ico { width: 14px; height: 14px; stroke-width: 2.2; }
+.bubble-x:hover { background: var(--cream); color: var(--ink); }
+.bubble-x .ico { width: 13px; height: 13px; stroke-width: 2.3; }
+/* טבעת עדינה על כפתור הצ'אט ברגע שבועה יוצאת ממנו */
+.chat-float.nudge::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 2px solid #25d366;
+  animation: nudgeRing 1.2s ease-out 2;
+  pointer-events: none;
+}
+@keyframes nudgeRing {
+  from { transform: scale(.92); opacity: .75; }
+  to { transform: scale(1.4); opacity: 0; }
+}
 
 /* ===== פוטר ===== */
 footer {
@@ -882,15 +897,7 @@ footer img { border-radius: 10px; background: var(--white); }
   .timeline::before { display: none; }
 }
 @media (max-width: 560px) {
-  /* החלונית נצמדת לתחתית ונכנסת מלמטה — אין מקום להחלקה מהצד */
-  .factpop, .factpop.side-left, .factpop.side-right {
-    left: 12px;
-    right: 12px;
-    width: auto;
-    bottom: 90px;
-    transform: translateY(26px);
-  }
-  .factpop.show { transform: translateY(0); }
+  .bubble { left: 14px; width: calc(100vw - 28px); bottom: 88px; }
 }
 @media (max-width: 520px) {
   .timeline { grid-template-columns: 1fr; }
@@ -905,5 +912,7 @@ footer img { border-radius: 10px; background: var(--white); }
   .reveal { opacity: 1; transform: none; transition: none; }
   .card:hover, .quote:hover, .stat:hover, .cta:hover, .nav-cta:hover, .send-btn:hover, .chat-float:hover { transform: none; }
   .cta::before, .send-btn::before { display: none; }
-  .factpop, .factpop.side-left, .factpop.side-right { transform: none; transition: opacity .3s ease, visibility .3s; }
+  .bubble { transform: none; transition: opacity .3s ease, visibility .3s; }
+  .bubble.show { transform: none; }
+  .chat-float.nudge::after { animation: none; }
 }
