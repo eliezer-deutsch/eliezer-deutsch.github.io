@@ -250,7 +250,7 @@ document.addEventListener("keydown", (e) => {
 // ===== בועת דיבור יזומה — עובדות על העסק, כל אחת מופיעה פעם אחת בלבד =====
 (function () {
   const facts = [
-    "בכל ריתוך נשרפת חולצת עבודה — ולכן הלקוח מממן חדשה. סעיף קבוע בהצעת המחיר",
+    "חלק ממחיר עבודת ריתוך הוא חולצת טריקו חדשה, שרוול ארוך!",
     "כל העובדים שלנו מתחת לגיל 18.\nבתכל'ס, גם מתחת לגיל 8",
     "מתקינים מצברים ומערכות סולאריות — ומגוון פתרונות הלכתיים לחשמל ולמים בשבת",
     "השותף הצעיר בחברה, מיכאל דויטש, בן 4. אחראי על מחלקת הפירוק",
@@ -273,10 +273,14 @@ document.addEventListener("keydown", (e) => {
   if (!pop || !txt || !closeBtn) return;
 
   const FIRST_DELAY = 5500;  /* השהיה לפני הבועה הראשונה */
-  const VISIBLE = 8500;      /* כמה זמן היא נשארת */
-  const GAP = 9000;          /* מרווח בין בועות */
+  const VISIBLE = 8500;      /* כמה זמן היא נשארת אחרי שהטקסט מופיע */
+  const GAP = 9000;          /* בסיס המרווח בין בועות */
+  const TYPING = 1100;       /* פעימת "מקליד..." לפני הטקסט */
 
-  let idx = 0, showTimer = null, hideTimer = null, nudgeTimer = null, stopped = false;
+  /* מרווח מעט שונה בכל פעם — מרווח קבוע נקרא מכני */
+  function jitter(ms) { return Math.round(ms * (0.75 + Math.random() * 0.6)); }
+
+  let idx = 0, showTimer = null, hideTimer = null, nudgeTimer = null, typeTimer = null, stopped = false;
 
   function schedule(fn, ms) {
     clearTimeout(showTimer);
@@ -291,8 +295,10 @@ document.addEventListener("keydown", (e) => {
       schedule(show, 4000);
       return;
     }
-    txt.textContent = facts[idx];
-    pop.classList.add("show");
+    const fact = facts[idx];
+    /* קודם "מקליד...", ואחר כך המשפט — כמו צ'אט אמיתי */
+    txt.innerHTML = '<span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>';
+    pop.classList.add("show", "typing");
     if (fab) {
       fab.classList.add("nudge");
       clearTimeout(nudgeTimer);
@@ -300,12 +306,17 @@ document.addEventListener("keydown", (e) => {
     }
     idx++;
     clearTimeout(hideTimer);
-    hideTimer = setTimeout(hide, VISIBLE);
+    clearTimeout(typeTimer);
+    typeTimer = setTimeout(() => {
+      pop.classList.remove("typing");
+      txt.textContent = fact;
+      hideTimer = setTimeout(hide, VISIBLE);
+    }, TYPING);
   }
 
   function hide() {
-    pop.classList.remove("show");
-    if (!stopped && idx < facts.length) schedule(show, GAP);
+    pop.classList.remove("show", "typing");
+    if (!stopped && idx < facts.length) schedule(show, jitter(GAP));
   }
 
   function stop() {
@@ -313,7 +324,8 @@ document.addEventListener("keydown", (e) => {
     clearTimeout(showTimer);
     clearTimeout(hideTimer);
     clearTimeout(nudgeTimer);
-    pop.classList.remove("show");
+    clearTimeout(typeTimer);
+    pop.classList.remove("show", "typing");
     if (fab) fab.classList.remove("nudge");
   }
 
@@ -339,8 +351,9 @@ document.addEventListener("keydown", (e) => {
   new MutationObserver(() => {
     if (overlay.classList.contains("open") && pop.classList.contains("show")) {
       clearTimeout(hideTimer);
-      pop.classList.remove("show");
-      if (!stopped && idx < facts.length) schedule(show, GAP);
+      clearTimeout(typeTimer);
+      pop.classList.remove("show", "typing");
+      if (!stopped && idx < facts.length) schedule(show, jitter(GAP));
     }
   }).observe(overlay, { attributes: true, attributeFilter: ["class"] });
 
@@ -412,37 +425,94 @@ btnBribe.addEventListener("click", () => {
   });
 });
 
-// ===== חשיפת שאר ההמלצות =====
+// ===== גלריה: פס נגלל + פתיחה לגריד מלא =====
 (function () {
-  const box = document.getElementById("quotes");
-  const btn = document.getElementById("moreQuotes");
-  if (!box || !btn) return;
-  const hidden = box.querySelectorAll(".quote.extra").length;
-  const label = btn.querySelector("span");
-  label.textContent = "עוד המלצות (" + hidden + ")";
-  btn.addEventListener("click", () => {
-    const open = box.classList.toggle("open");
-    btn.setAttribute("aria-expanded", open);
-    label.textContent = open ? "פחות המלצות" : "עוד המלצות (" + hidden + ")";
+  const rail = document.getElementById("galleryGrid");
+  const prev = document.getElementById("railPrev");
+  const next = document.getElementById("railNext");
+  const toggle = document.getElementById("galleryToggle");
+  if (!rail || !prev || !next || !toggle) return;
+
+  const label = toggle.querySelector("span");
+  const closedLabel = label.textContent;
+  /* ב-RTL scrollLeft של כרום יורד מאפס למינוס — לכן כל החישובים על הערך המוחלט */
+  const sign = getComputedStyle(rail).direction === "rtl" ? -1 : 1;
+
+  function step() {
+    return Math.max(rail.clientWidth * 0.8, 240);
+  }
+
+  function sync() {
+    if (rail.classList.contains("open")) return;
+    const max = rail.scrollWidth - rail.clientWidth - 2;
+    const pos = Math.abs(rail.scrollLeft);
+    prev.disabled = pos <= 2;
+    next.disabled = pos >= max;
+  }
+
+  /* scrollBy/scrollTo עם behavior:"smooth" נעצרים אחרי כמה עשרות פיקסלים כשה-scroll-snap
+     פעיל ב-RTL, ולכן מנפישים כאן ידנית: הצמדה מכובה לאורך התנועה ומוחזרת בסופה.
+     ה-timeout הוא רשת ביטחון למקרה שהדפדפן לא מספק פריימים (לשונית ברקע). */
+  let anim = 0, guard = 0;
+
+  function animateTo(target) {
+    const from = rail.scrollLeft;
+    const dist = target - from;
+    if (Math.abs(dist) < 1) return;
+    const t0 = performance.now();
+    const dur = 380;
+    rail.style.scrollSnapType = "none";
+    cancelAnimationFrame(anim);
+    clearTimeout(guard);
+
+    function tick(now) {
+      const p = Math.min((now - t0) / dur, 1);
+      rail.scrollLeft = from + dist * (1 - Math.pow(1 - p, 3));
+      if (p < 1) anim = requestAnimationFrame(tick); else finish();
+    }
+    function finish() {
+      rail.style.scrollSnapType = "";
+      sync();
+    }
+    anim = requestAnimationFrame(tick);
+    guard = setTimeout(() => {
+      if (Math.abs(rail.scrollLeft - target) > 4) {
+        cancelAnimationFrame(anim);
+        rail.scrollLeft = target;
+        finish();
+      }
+    }, dur + 140);
+  }
+
+  /* ב-RTL הטווח של scrollLeft הוא [-max, 0] — הקיצוץ נעשה מול הקצה הנכון */
+  function go(forward) {
+    const max = rail.scrollWidth - rail.clientWidth;
+    const raw = rail.scrollLeft + sign * (forward ? 1 : -1) * step();
+    const target = sign < 0 ? Math.min(0, Math.max(-max, raw)) : Math.max(0, Math.min(max, raw));
+    animateTo(target);
+  }
+
+  prev.addEventListener("click", () => go(false));
+  next.addEventListener("click", () => go(true));
+  rail.addEventListener("scroll", sync, { passive: true });
+  window.addEventListener("resize", sync);
+
+  toggle.addEventListener("click", () => {
+    const open = rail.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", open);
+    label.textContent = open ? "כווץ את הגלריה" : closedLabel;
+    prev.hidden = next.hidden = open;
     if (open) {
-      /* משקיף הגילוי לא חל על אלמנטים שהיו display:none — חושפים אותם ידנית, במדורג */
-      const els = box.querySelectorAll(".quote.extra");
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        els.forEach((el, i) => {
-          el.style.transitionDelay = (i * 70) + "ms";
-          el.classList.add("visible");
-          el.addEventListener("transitionend", function onEnd(ev) {
-            if (ev.propertyName !== "transform") return;
-            el.style.transitionDelay = "";
-            el.classList.add("done");
-            el.removeEventListener("transitionend", onEnd);
-          });
-        });
-      }));
+      /* כל התמונות נחשפות בבת אחת — מוותרים על הטעינה העצלה כדי שלא ייפתחו ריקים */
+      rail.querySelectorAll("img").forEach(im => { im.loading = "eager"; });
     } else {
-      document.getElementById("reviews").scrollIntoView({ behavior: "smooth", block: "start" });
+      rail.scrollLeft = 0;
+      document.getElementById("gallery").scrollIntoView({ behavior: "smooth", block: "start" });
+      sync();
     }
   });
+
+  sync();
 })();
 
 // ===== גלריה: לייטבוקס =====
