@@ -47,6 +47,11 @@
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
   <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M12 3a6.2 6.2 0 0 1 3.7 11.2c-.75.6-1.2 1.4-1.2 2.3h-5c0-.9-.45-1.7-1.2-2.3A6.2 6.2 0 0 1 12 3z"/><path d="M9.8 19.2h4.4M10.6 21.6h2.8"/></symbol>
   <symbol id="i-denied" viewBox="0 0 100 100"><g transform="rotate(-13 50 50)"><rect x="7" y="29" width="86" height="42" rx="7" fill="none" stroke="currentColor" stroke-width="4.5"/><rect x="13.5" y="35.5" width="73" height="29" rx="3.5" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><text x="50" y="58.5" text-anchor="middle" font-size="21" font-weight="900" fill="currentColor" stroke="none" font-family="Heebo, sans-serif">נדחה</text></g></symbol>
+  <symbol id="i-crown" viewBox="0 0 24 24"><path d="M3.4 17.6 5 7.2l4.1 3.6L12 4.6l2.9 6.2L19 7.2l1.6 10.4z"/><path d="M4.2 20.4h15.6"/></symbol>
+  <symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M6.6 3.2h10.8M6.6 20.8h10.8"/><path d="M7.8 3.2v3.1c0 2 4.2 3.8 4.2 5.7s-4.2 3.7-4.2 5.7v3.1"/><path d="M16.2 3.2v3.1c0 2-4.2 3.8-4.2 5.7s4.2 3.7 4.2 5.7v3.1"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="10.2" width="18" height="10.4" rx="1.9"/><path d="M2 10.2h20M12 10.2v10.4"/><path d="M12 10.2S10.5 4.2 8 4.2a2.4 2.4 0 0 0 0 6zM12 10.2s1.5-6 4-6a2.4 2.4 0 0 1 0 6z"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M9.2 4.6 16.6 12l-7.4 7.4"/></symbol>
+  <symbol id="i-expand" viewBox="0 0 24 24"><path d="M4 9.4V4h5.4M20 9.4V4h-5.4M4 14.6V20h5.4M20 14.6V20h-5.4"/></symbol>
   <symbol id="i-phone-off" viewBox="0 0 24 24"><path d="M15.6 13.9a13.6 13.6 0 0 1-5.5-5.5l1.8-1.8-2.6-4H5.1a2 2 0 0 0-2 2.2 17.6 17.6 0 0 0 3.5 8.6"/><path d="M9.4 16.6a17.6 17.6 0 0 0 8.4 3.3 2 2 0 0 0 2.2-2v-4.2l-4-2.6"/><path d="M3.2 3.2 20.8 20.8"/></symbol>
 </defs></svg>
 
@@ -62,6 +67,7 @@
     <div class="nav-links">
       <a href="#services">שירותים</a>
       <a href="#process">איך זה עובד</a>
+      <a href="#gallery">גלריה</a>
       <a href="#reviews">המלצות</a>
     </div>
     <a class="nav-cta" href="#order">להזמנת עבודה</a>
@@ -72,6 +78,7 @@
   <div class="mobile-menu" id="mobileMenu">
     <a href="#services">שירותים</a>
     <a href="#process">איך זה עובד</a>
+    <a href="#gallery">גלריה</a>
     <a href="#reviews">המלצות</a>
     <a class="mobile-cta" href="#order"><svg class="ico" aria-hidden="true"><use href="#i-helmet"/></svg>להזמנת עבודה</a>
   </div>
@@ -234,7 +241,105 @@
   </div>
 </div>
 
-<div class="wave wave-sand" aria-hidden="true"><svg viewBox="0 0 1440 54" preserveAspectRatio="none"><path d="M0,27 C240,0 480,54 720,27 C960,0 1200,54 1440,27 L1440,54 L0,54 Z"/></svg></div>
+<div class="wave wave-back-white" aria-hidden="true"><svg viewBox="0 0 1440 54" preserveAspectRatio="none"><path d="M0,27 C240,0 480,54 720,27 C960,0 1200,54 1440,27 L1440,54 L0,54 Z"/></svg></div>
+
+<div class="band band-white">
+  <div class="container">
+    <section id="gallery">
+      <span class="eyebrow reveal">מהשטח</span>
+      <h2 class="reveal">גלריית פרויקטים</h2>
+      <p class="sub reveal">תיעוד מלא של כל שלב — כולל השלבים שקבלנים אחרים לא מצלמים</p>
+      <div class="gallery" id="galleryGrid">
+        <button class="gitem wide" type="button" data-full="assets/gallery/g01.webp" data-cap="לפני ואחרי">
+          <img src="assets/gallery/g01-t.webp" width="760" height="517" alt="לפני ואחרי" loading="lazy" decoding="async">
+          <span class="gcap">לפני ואחרי</span>
+        </button>
+        <button class="gitem" type="button" data-full="assets/gallery/g02.webp" data-cap="מצא את ההבדלים">
+          <img src="assets/gallery/g02-t.webp" width="760" height="570" alt="מצא את ההבדלים" loading="lazy" decoding="async">
+          <span class="gcap">מצא את ההבדלים</span>
+        </button>
+        <button class="gitem" type="button" data-full="assets/gallery/g03.webp" data-cap="אל דאגה, זה לא ייראה ככה בסוף">
+          <img src="assets/gallery/g03-t.webp" width="760" height="570" alt="אל דאגה, זה לא ייראה ככה בסוף" loading="lazy" decoding="async">
+          <span class="gcap">אל דאגה, זה לא ייראה ככה בסוף</span>
+        </button>
+        <button class="gitem" type="button" data-full="assets/gallery/g04.webp" data-cap="את כל זה שברנו ופינינו">
+          <img src="assets/gallery/g04-t.webp" width="760" height="570" alt="את כל זה שברנו ופינינו" loading="lazy" decoding="async">
+          <span class="gcap">את כל זה שברנו ופינינו</span>
+        </button>
+        <button class="gitem" type="button" data-full="assets/gallery/g05.webp" data-cap="מתקדמים (לאט)">
+          <img src="assets/gallery/g05-t.webp" width="570" height="760" alt="מתקדמים (לאט)" loading="lazy" decoding="async">
+          <span class="gcap">מתקדמים (לאט)</span>
+        </button>
+        <button class="gitem" type="button" data-full="assets/gallery/g06.webp" data-cap="פינוי פסולת אחראי">
+          <img src="assets/gallery/g06-t.webp" width="570" height="760" alt="פינוי פסולת אחראי" loading="lazy" decoding="async">
+          <span class="gcap">פינוי פסולת אחראי</span>
+        </button>
+        <button class="gitem" type="button" data-full="assets/gallery/g07.webp" data-cap="השלב הכיף הסתיים (כמעט)">
+          <img src="assets/gallery/g07-t.webp" width="760" height="570" alt="השלב הכיף הסתיים (כמעט)" loading="lazy" decoding="async">
+          <span class="gcap">השלב הכיף הסתיים (כמעט)</span>
+        </button>
+        <button class="gitem" type="button" data-full="assets/gallery/g08.webp" data-cap="איך הם יצאו משם">
+          <img src="assets/gallery/g08-t.webp" width="570" height="760" alt="איך הם יצאו משם" loading="lazy" decoding="async">
+          <span class="gcap">איך הם יצאו משם</span>
+        </button>
+        <button class="gitem" type="button" data-full="assets/gallery/g09.webp" data-cap="החלון קורם אור וגידים">
+          <img src="assets/gallery/g09-t.webp" width="570" height="760" alt="החלון קורם אור וגידים" loading="lazy" decoding="async">
+          <span class="gcap">החלון קורם אור וגידים</span>
+        </button>
+        <button class="gitem wide" type="button" data-full="assets/gallery/g10.webp" data-cap="ריתוך שורש באלקטרודת 6010">
+          <img src="assets/gallery/g10-t.webp" width="760" height="570" alt="ריתוך שורש באלקטרודת 6010" loading="lazy" decoding="async">
+          <span class="gcap">ריתוך שורש באלקטרודת 6010</span>
+        </button>
+        <button class="gitem" type="button" data-full="assets/gallery/g11.webp" data-cap="תמונה אחרונה לפני שמכסים את כל העבודה הקשה">
+          <img src="assets/gallery/g11-t.webp" width="570" height="760" alt="תמונה אחרונה לפני שמכסים את כל העבודה הקשה" loading="lazy" decoding="async">
+          <span class="gcap">תמונה אחרונה לפני שמכסים את כל העבודה הקשה</span>
+        </button>
+        <button class="gitem wide" type="button" data-full="assets/gallery/g12.webp" data-cap="טיפין טיפין">
+          <img src="assets/gallery/g12-t.webp" width="760" height="517" alt="טיפין טיפין" loading="lazy" decoding="async">
+          <span class="gcap">טיפין טיפין</span>
+        </button>
+        <button class="gitem" type="button" data-full="assets/gallery/g13.webp" data-cap="ילד (לא) יכול לעשות את זה">
+          <img src="assets/gallery/g13-t.webp" width="760" height="570" alt="ילד (לא) יכול לעשות את זה" loading="lazy" decoding="async">
+          <span class="gcap">ילד (לא) יכול לעשות את זה</span>
+        </button>
+        <button class="gitem" type="button" data-full="assets/gallery/g14.webp" data-cap="כל עובד מבצע בהתאם ליכולותיו">
+          <img src="assets/gallery/g14-t.webp" width="760" height="570" alt="כל עובד מבצע בהתאם ליכולותיו" loading="lazy" decoding="async">
+          <span class="gcap">כל עובד מבצע בהתאם ליכולותיו</span>
+        </button>
+        <button class="gitem" type="button" data-full="assets/gallery/g15.webp" data-cap="העובד הוותיק בציוד מלא">
+          <img src="assets/gallery/g15-t.webp" width="760" height="570" alt="העובד הוותיק בציוד מלא" loading="lazy" decoding="async">
+          <span class="gcap">העובד הוותיק בציוד מלא</span>
+        </button>
+        <button class="gitem" type="button" data-full="assets/gallery/g16.webp" data-cap="שיטות שתמצאו רק אצלינו">
+          <img src="assets/gallery/g16-t.webp" width="760" height="570" alt="שיטות שתמצאו רק אצלינו" loading="lazy" decoding="async">
+          <span class="gcap">שיטות שתמצאו רק אצלינו</span>
+        </button>
+        <button class="gitem" type="button" data-full="assets/gallery/g17.webp" data-cap="הקבינט בישיבת חירום">
+          <img src="assets/gallery/g17-t.webp" width="760" height="570" alt="הקבינט בישיבת חירום" loading="lazy" decoding="async">
+          <span class="gcap">הקבינט בישיבת חירום</span>
+        </button>
+        <button class="gitem" type="button" data-full="assets/gallery/g18.webp" data-cap="העובדים בהפסקת קפה">
+          <img src="assets/gallery/g18-t.webp" width="760" height="570" alt="העובדים בהפסקת קפה" loading="lazy" decoding="async">
+          <span class="gcap">העובדים בהפסקת קפה</span>
+        </button>
+        <button class="gitem" type="button" data-full="assets/gallery/g19.webp" data-cap="עדיין אופטימיים">
+          <img src="assets/gallery/g19-t.webp" width="760" height="570" alt="עדיין אופטימיים" loading="lazy" decoding="async">
+          <span class="gcap">עדיין אופטימיים</span>
+        </button>
+        <button class="gitem" type="button" data-full="assets/gallery/g20.webp" data-cap="השקעה לפרטים">
+          <img src="assets/gallery/g20-t.webp" width="760" height="570" alt="השקעה לפרטים" loading="lazy" decoding="async">
+          <span class="gcap">השקעה לפרטים</span>
+        </button>
+        <button class="gitem" type="button" data-full="assets/gallery/g21.webp" data-cap="סוף סוף זה נראה חדר">
+          <img src="assets/gallery/g21-t.webp" width="760" height="570" alt="סוף סוף זה נראה חדר" loading="lazy" decoding="async">
+          <span class="gcap">סוף סוף זה נראה חדר</span>
+        </button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="wave wave-sand-from-white" aria-hidden="true"><svg viewBox="0 0 1440 54" preserveAspectRatio="none"><path d="M0,27 C240,54 480,0 720,27 C960,54 1200,0 1440,27 L1440,54 L0,54 Z"/></svg></div>
 
 <div class="band band-sand">
   <div class="container">
@@ -242,21 +347,144 @@
       <span class="eyebrow reveal">המלצות</span>
       <h2 class="reveal">מה אומרים עלינו</h2>
       <p class="sub reveal">כמה מילים ממי שכבר בנה איתנו</p>
-      <div class="quotes">
+      <div class="quotes" id="quotes">
         <div class="quote reveal">
           <div class="stars" aria-label="חמישה כוכבים מתוך חמישה">
-            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
           </div>
           <p>פרפקציוניזם בלי פשרות, כל השאר פחות חשוב</p>
           <div class="quote-footer"><span class="avatar">ט</span><span class="who">טובי דויטש</span></div>
         </div>
         <div class="quote reveal">
           <div class="stars" aria-label="חמישה כוכבים מתוך חמישה">
-            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
           </div>
           <p>אבא שלי בונה קירות הכי טוב</p>
-          <div class="quote-footer"><span class="avatar">מ</span><span class="who">מיכאל דויטש</span></div>
+          <div class="quote-footer"><span class="avatar">מ</span><span class="who">מיכאל דויטש<small>השותף הצעיר</small></span></div>
         </div>
+        <div class="quote reveal">
+          <div class="stars" aria-label="חמישה כוכבים מתוך חמישה">
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+          </div>
+          <p>אלוף!<br>מחירים נוחים ביותר מבלי להתפשר על איכות עבודה ועמידה בלוחות זמנים!<br>ממליץ בחום!</p>
+          <div class="quote-footer"><span class="avatar">מ</span><span class="who">מאיר גרשטיין<small>בני ברק</small></span></div>
+        </div>
+        <div class="quote reveal">
+          <div class="stars" aria-label="חמישה כוכבים מתוך חמישה">
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+          </div>
+          <p>פניתי לאליעזר בקשר לפרויקט הקמת בית נאמן בישראל יחד עם טובי. התוצאות בשטח מדברות בעד עצמן: חיבור יציב ללא מפלי מתח, זווית התקנה אופטימלית שקולטת מקסימום אור, אופטימייזר מובנה להפקת אנרגיה גם בימים מעוננים. גימור ברמה תורנית גבוהה, וגם דוד מים רבים (של שבת עם משאבת לחץ) לא יוכל לכבות...</p>
+          <div class="quote-footer"><span class="avatar">ש</span><span class="who sign"><small>על החתום</small>שווער מרוצה</span></div>
+        </div>
+        <div class="quote reveal">
+          <div class="stars" aria-label="חמישה כוכבים מתוך חמישה">
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+          </div>
+          <p>אליעזר דויטש מריץ פרויקטים באליפות.<br>מעולה בעבודה מדויקת זריזה ונקיה.<br>לא מדלג על גימור מושלם ונקי (תרתי משמע)</p>
+          <div class="quote-footer"><span class="avatar">ע</span><span class="who">עדינה דונט<small>מודיעין עילית</small></span></div>
+        </div>
+        <div class="quote reveal">
+          <div class="stars" aria-label="חמישה כוכבים מתוך חמישה">
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+          </div>
+          <p>רצינו להמליץ על הקבלן המופלא אליעזר דויטש — הוא התקין לנו סולארי במהירות הבזק. זה היה נראה פשוט כמו סרט בהרצה, לא היה בורג שהוברג פעמיים. והכל עם ליווי אישי וייעוץ לכל החיים. פשוט קבלן מושלם, וכל הטוב הזה במחיר אפסי</p>
+          <div class="quote-footer"><span class="avatar">ח</span><span class="who">חיים דויטש<small>דרך השם</small></span></div>
+        </div>
+        <div class="quote reveal extra">
+          <div class="stars" aria-label="חמישה כוכבים מתוך חמישה">
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+          </div>
+          <p>המלצה חמה על אדם משכמו ומעלה. אליעזר היקר איש רב פעלים, ישר ואדיב, מוכשר ביותר, ידיו רב לו, יחד עם ההתמדה שלו בתורה. עוסק בתחום הבניה והשיפוצים, ולא נתקלתי בדבר שלא היה לו בו ידע רחב. שירות ברמה גבוהה מאד, אדיבות מעל הכל, מומלץ מאוד מאוד.<br>מאחל לו הצלחה ענקית בכל מעשה ידיו</p>
+          <div class="quote-footer"><span class="avatar">י</span><span class="who">יעקב רוטנברג<small>בני ברק</small></span></div>
+        </div>
+        <div class="quote reveal extra">
+          <div class="stars" aria-label="חמישה כוכבים מתוך חמישה">
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+          </div>
+          <p>ממליצה בחום!<br>אליעזר מקצוען רב תחומי, תקבלו מענה מעל ומעבר למצופה. לא תצטרכו להזמין בעלי מלאכה שונים לכל קישקוש — הכל כלול! כולל בניית אמון ביניכם והרגעה שהכל יהיה בזמן, ובמיוחד אם אתם בערב שמחה. אם פעם כבר השתמשתם בשירות דומה — תופתעו! זו תהיה עיסקת חייכם: אברך ירא שמים שיגבל באבני הפינה שלכם ערכי אמת ורוח.<br>בפינה זו נאחל לאליעזר ולכל המשפחה: שפע ברכת ד' ורב נחת!</p>
+          <div class="quote-footer"><span class="avatar">א</span><span class="who sign"><small>באהבה</small>אמא</span></div>
+        </div>
+        <div class="quote reveal extra">
+          <div class="stars" aria-label="חמישה כוכבים מתוך חמישה">
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+          </div>
+          <p>אליעזר בחור יסודי, חרוץ, ביריון — אין משהו שעומד בפניו. השרות שלו הכי חזק בשוק, הישרות שלו מלחיצה. הוא מסוגל להגיד ללקוח שלי שסטרינג שלם לא היה מחובר בשעה שזה יגרום לי נזק, העיקר להיות שקוף מול הלקוח. אין עליו, הלוואי שיעבוד איתי קבוע....</p>
+          <div class="quote-footer"><span class="avatar">ש</span><span class="who">שלמה נדל<small>מנכ"ל ובעלים · ECOSHER SOLAR group</small></span></div>
+        </div>
+        <div class="quote reveal extra">
+          <div class="stars" aria-label="חמישה כוכבים מתוך חמישה">
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+          </div>
+          <p>הבחור תמיד ישתדל ללמוד את צרכי הלקוח לפרטי פרטים לפני שיציע פתרון מתאים, וכשיביא את הפתרון — יעמוד מאחוריו במקסימום שירות, כדי להגיע לאפקטיביות מלאה של המוצר עד לפרט האחרון.<br>הלוואי יבוא ויצטרף לכוחותינו</p>
+          <div class="quote-footer"><span class="avatar">מ</span><span class="who">מנהל תפעול<small>ECOSHER SOLAR group</small></span></div>
+        </div>
+        <div class="quote reveal extra">
+          <div class="stars" aria-label="חמישה כוכבים מתוך חמישה">
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+          </div>
+          <p>רצינו להמליץ על תאגיד הבנייה והשיפוצים דויטש גרופ בע''מ, ובפרט על הבעלים אליעזר. השתמשנו בשירותיו פעמים מספר ובכל פעם יצאנו נפעמים מאיכות השירות וטיב העבודה, הזריזות, החריצות ופתירת הבעיות המהירה — ובפרט מדרכי העבודה החסכוניות והיעילות.<br>איך זה שהאיש מספק שירותי חשמל, אינסטלצייה, בניה קלה, בנייה כבדה, מסגרות, יציקות בטון, ריסוס מזיקים, ריסוס מינים פולשים, אחזקת אקווריומים ותיקון מגברים גיטרות אפקטים ודפקטים — ועל הדרך לגמול חסדים עם כל מי שנקרה בדרכו, וכל זה עם זוג אופניים ותיק שחור אחד קטן, וכל זה 'על הדרך' בחזור מהגן או רגע לפני הכולל.<br>בקיצור, אם יש לכם פרוייקט בקרוב — זה האיש. לא להסס, מי שימצמץ יפספס.<br>וללייזר נאחל: שתצליח בכל מעשה ידך, שתזכה לסדר את התיק החדש בצורה האופטימלית עם מקסימום כלים ומינימום משקל, שתמצא ארגונית פקאאוט זרוקה ברחוב סתם ככה, שלא תיגמר לך הסוללה לעולם למרות שהיא רק 2A 12V, שלא יחסר לך בורג ולא יאבד לך ביט לעולם.</p>
+          <div class="quote-footer"><span class="avatar">פ</span><span class="who sign"><small>בברכה</small>פרגולות העמק</span></div>
+        </div>
+        <div class="quote reveal extra poem">
+          <div class="stars" aria-label="חמישה כוכבים מתוך חמישה">
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+            <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
+          </div>
+          <p>המלצה חמה —<br>על איש עפולה גבה קומה<br>ידיו רב לו בכל חכמה<br>וכל ביצוע — ברמה<br><br>קחו אותו לעבודה קטנה<br>וקבלו אחריות למאה שנה<br>יענה, יסביר, יתן הכוונה<br>כי אכפת לו באמת — המטבע לא משנה...<br>במקום שאין אנשים הוא הדמות הנכונה<br>ובכל שעת צורך ישלוף אמירה שנונה<br>ברכות לעוד 93 שנות עשיה ברוכה ובונה<br>מלאות אושר שמחה ורננה.</p>
+          <div class="quote-footer"><span class="avatar">ש</span><span class="who">שרה יונגרמן<small>מודיעין עילית</small></span></div>
+        </div>
+      </div>
+      <div class="quotes-more">
+        <button class="more-btn" id="moreQuotes" type="button" aria-expanded="false" aria-controls="quotes">
+          <span>עוד המלצות (6)</span><svg class="ico" aria-hidden="true"><use href="#i-chevron"/></svg>
+        </button>
       </div>
     </section>
   </div>
@@ -307,7 +535,7 @@
 <div class="overlay" id="overlay">
   <div class="modal" id="modal" role="dialog" aria-modal="true" tabindex="-1" aria-live="polite">
     <div id="loadingView">
-      <h3>מעבד את הבקשה...</h3>
+      <h3 id="loadingTitle">מעבד את הבקשה...</h3>
       <div class="steps" id="steps"></div>
     </div>
     <div id="resultView" style="display:none">
@@ -319,8 +547,56 @@
         <button class="btn-convince" id="btnConvince">נסה לשכנע אותה</button>
         <button class="btn-giveup" id="btnGiveup">ויתרתי</button>
       </div>
+      <button class="btn-vip" id="btnVip" type="button">
+        <svg class="ico" aria-hidden="true"><use href="#i-crown"/></svg>
+        <span>למסלול המהיר · VIP</span>
+      </button>
+    </div>
+    <div id="vipView" style="display:none">
+      <div class="vip-head">
+        <svg class="ico vip-crown" aria-hidden="true"><use href="#i-crown"/></svg>
+        <h3>המסלול המהיר</h3>
+        <p class="vip-sub">התור ארוך והיומן מלא — אבל תמיד אפשר לדבר. מה אתם מציעים?</p>
+      </div>
+      <div class="bribes" id="bribes" role="radiogroup" aria-label="בחירת הצעה">
+          <button class="bribe" type="button" role="radio" aria-checked="false" data-i="0">רכב ליום</button>
+          <button class="bribe" type="button" role="radio" aria-checked="false" data-i="1">רכב לחודש</button>
+          <button class="bribe" type="button" role="radio" aria-checked="false" data-i="2">רכב ללא הגבלה</button>
+          <button class="bribe" type="button" role="radio" aria-checked="false" data-i="3">רישיון למשאית</button>
+          <button class="bribe" type="button" role="radio" aria-checked="false" data-i="4">רתכת</button>
+          <button class="bribe" type="button" role="radio" aria-checked="false" data-i="5">שירותי הובלת רהיטים</button>
+          <button class="bribe" type="button" role="radio" aria-checked="false" data-i="6">תיק כלי עבודה</button>
+          <button class="bribe" type="button" role="radio" aria-checked="false" data-i="7">מברגה של מילווקי</button>
+          <button class="bribe" type="button" role="radio" aria-checked="false" data-i="8">מוסך / גראז'</button>
+          <button class="bribe" type="button" role="radio" aria-checked="false" data-i="9">תוספת שעתיים ביממה</button>
+          <button class="bribe" type="button" role="radio" aria-checked="false" data-i="10">שעון שלעולם לא עוברות בו ה"חמש דקות"</button>
+      </div>
+      <div class="modal-btns">
+        <button class="btn-convince" id="btnBribe" type="button" disabled>הגש הצעה</button>
+        <button class="btn-giveup" id="btnVipBack" type="button">חזרה</button>
+      </div>
+    </div>
+    <div id="vipResultView" style="display:none">
+      <svg class="result-ico" aria-hidden="true"><use href="#i-gift"/></svg>
+      <h3>מצטער, אבל עדיין לא....</h3>
+      <p id="vipResultText"></p>
+      <div class="modal-btns">
+        <button class="btn-convince" id="btnBribeAgain" type="button">להציע משהו אחר</button>
+        <button class="btn-giveup" id="btnVipGiveup" type="button">ויתרתי</button>
+      </div>
     </div>
   </div>
+</div>
+
+<!-- לייטבוקס הגלריה -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="תצוגת תמונה מוגדלת">
+  <button class="lb-btn lb-close" id="lbClose" aria-label="סגירת התצוגה"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button>
+  <button class="lb-btn lb-nav lb-prev" id="lbPrev" aria-label="התמונה הקודמת"><svg class="ico" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+  <button class="lb-btn lb-nav lb-next" id="lbNext" aria-label="התמונה הבאה"><svg class="ico" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+  <figure class="lb-fig">
+    <img id="lbImg" alt="" decoding="async">
+    <figcaption class="lb-cap"><span id="lbCap"></span><span class="lb-count" id="lbCount"></span></figcaption>
+  </figure>
 </div>
 
 <!-- בועת דיבור יזומה — יוצאת מכפתור הצ'אט -->

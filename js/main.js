@@ -81,17 +81,27 @@ const processingSteps = [
   "מעביר לאישור הרשות המוסמכת (אשתי)...",
 ];
 
+/* כל תירוץ: t=כותרת, i=אייקון, x=טקסט. {n} מוחלף במספר התור הנוכחי.
+   התירוצים מ-0 עד WIFE_COUNT-1 הם ה"אשתי לא מרשה לי" — משם תמיד מגיעה התשובה הראשונה,
+   כי זו הפאנץ' של הדף. אחריה מתערבבים גם תירוצי התור. */
 const excuses = [
-  "בדקנו עם ההנהלה הבכירה. התשובה: אשתי לא מרשה לי. אין מה לעשות, זו סמכות מעליי.",
-  "הייתי מגיע כבר מחר בבוקר, אבל אשתי אמרה שקודם מסיימים את המדף בסלון. זה שמחכה מ-2019.",
-  "הבקשה נדונה בוועדת התכנון העליונה (אשתי). הסטטוס: נדחתה פה אחד. הוועדה מונה חברה אחת.",
-  "יש לי חלון פנוי בעוד שלושה חודשים... רגע, שנייה... לא, אשתי אומרת שגם אז לא.",
-  "אשתי בדקה את היומן שלי והודיעה שאני עסוק. במה? זה עדיין בבירור.",
-  "דיברתי עם אשתי. היא אמרה: 'בטח, כמו הפרגולה שהבטחת לאמא שלי'. אז... לא.",
-  "אשתי לא מרשה לי לקחת פרויקטים חדשים עד שאני מרכיב את הארון מאיקאה. אנחנו בשנה השנייה להרכבה.",
-  "התקשרתי הביתה לבדוק אם אפשר. תשמע... עדיף שלא ניכנס לפרטים. התשובה שלילית.",
-  "אשתי הזכירה לי שהבטחתי לה מרפסת עוד בחתונה. עד שאין מרפסת — אין פרויקטים חדשים.",
+  { t: "אשתי לא מרשה לי", i: "#i-denied", x: "בדקנו עם ההנהלה הבכירה. התשובה: אשתי לא מרשה לי. אין מה לעשות, זו סמכות מעליי." },
+  { t: "אשתי לא מרשה לי", i: "#i-denied", x: "הייתי מגיע כבר מחר בבוקר, אבל אשתי אמרה שקודם מסיימים את המדף בסלון. זה שמחכה מ-2019." },
+  { t: "אשתי לא מרשה לי", i: "#i-denied", x: "הבקשה נדונה בוועדת התכנון העליונה (אשתי). הסטטוס: נדחתה פה אחד. הוועדה מונה חברה אחת." },
+  { t: "אשתי לא מרשה לי", i: "#i-denied", x: "יש לי חלון פנוי בעוד שלושה חודשים... רגע, שנייה... לא, אשתי אומרת שגם אז לא." },
+  { t: "אשתי לא מרשה לי", i: "#i-denied", x: "אשתי בדקה את היומן שלי והודיעה שאני עסוק. במה? זה עדיין בבירור." },
+  { t: "אשתי לא מרשה לי", i: "#i-denied", x: "דיברתי עם אשתי. היא אמרה: 'בטח, כמו הפרגולה שהבטחת לאמא שלי'. אז... לא." },
+  { t: "אשתי לא מרשה לי", i: "#i-denied", x: "אשתי לא מרשה לי לקחת פרויקטים חדשים עד שאני מרכיב את הארון מאיקאה. אנחנו בשנה השנייה להרכבה." },
+  { t: "אשתי לא מרשה לי", i: "#i-denied", x: "התקשרתי הביתה לבדוק אם אפשר. תשמע... עדיף שלא ניכנס לפרטים. התשובה שלילית." },
+  { t: "אשתי לא מרשה לי", i: "#i-denied", x: "אשתי הזכירה לי שהבטחתי לה מרפסת עוד בחתונה. עד שאין מרפסת — אין פרויקטים חדשים." },
+  { t: "נרשמת. יש תור.", i: "#i-hourglass", x: "רשמתי אותך. המקום שלך בתור: {n}. אנחנו מקדמים בערך שלושה בשנה, אז זה מתקדם יפה." },
+  { t: "רשימת המתנה", i: "#i-hourglass", x: "זמן ההמתנה הממוצע לפרויקט חדש עומד על שמונה שנים. זה עוד לפני הזמן שאשתי תיקח לחשוב על זה." },
+  { t: "היומן מלא", i: "#i-hourglass", x: "היומן סגור עד תשפ\"ט. אחרי זה יש חלון אחד, והוא כבר מובטח לגיס שלי." },
+  { t: "יש אנשים לפניך", i: "#i-hourglass", x: "לפניך {n} פונים. חלקם מחכים מאז שהבן שלי נולד. הוא בן ארבע." },
+  { t: "עומס חריג", i: "#i-hourglass", x: "היום התקבלו 41 פניות. ענינו לאחת — וגם עליה אשתי אמרה לא." },
+  { t: "בטיפול", i: "#i-hourglass", x: "הבקשה שלך במקום {n}, ומטופלת לפי סדר הגעה. את הסדר קובעת אשתי, וזה לא בהכרח סדר הגעה." },
 ];
+const WIFE_COUNT = 9;
 
 const finalExcuse = "טוב, שכנעת אותי! מתי מתחילים?... רגע, אשתי מתקשרת... כן מאמי... ברור מאמי... אז זהו, לא. סופי. תבורכו.";
 
@@ -108,22 +118,50 @@ const convinceCounter = document.getElementById("convinceCounter");
 const btnConvince = document.getElementById("btnConvince");
 const btnGiveup = document.getElementById("btnGiveup");
 
+const vipView = document.getElementById("vipView");
+const vipResultView = document.getElementById("vipResultView");
+const vipResultText = document.getElementById("vipResultText");
+const bribesBox = document.getElementById("bribes");
+const btnVip = document.getElementById("btnVip");
+const btnBribe = document.getElementById("btnBribe");
+const btnVipBack = document.getElementById("btnVipBack");
+const btnBribeAgain = document.getElementById("btnBribeAgain");
+const btnVipGiveup = document.getElementById("btnVipGiveup");
+
 let attempts = 0;
 let usedExcuses = [];
 let stepTimers = [];
+let queueNum = 12345;
+let selectedBribe = null;
+
+/* למודאל ארבעה מסכים: טעינה, תשובה, מסלול מהיר, ותשובת המסלול המהיר */
+function showView(v) {
+  loadingView.style.display = v === "loading" ? "block" : "none";
+  resultView.style.display = v === "result" ? "block" : "none";
+  vipView.style.display = v === "vip" ? "block" : "none";
+  vipResultView.style.display = v === "vipResult" ? "block" : "none";
+  modal.classList.toggle("wide", v === "vip");
+}
 
 function pickExcuse() {
-  if (usedExcuses.length >= excuses.length) return finalExcuse;
+  if (usedExcuses.length >= excuses.length) return null; /* null = התירוץ הסופי */
+  /* התשובה הראשונה תמיד "אשתי לא מרשה לי"; מכאן והלאה כל המאגר פתוח */
+  const top = usedExcuses.length === 0 ? WIFE_COUNT : excuses.length;
   let idx;
-  do { idx = Math.floor(Math.random() * excuses.length); } while (usedExcuses.includes(idx));
+  do { idx = Math.floor(Math.random() * top); } while (usedExcuses.includes(idx));
   usedExcuses.push(idx);
   return excuses[idx];
 }
 
 function showResult() {
-  loadingView.style.display = "none";
-  resultView.style.display = "block";
-  resultText.textContent = pickExcuse();
+  const ex = pickExcuse();
+  const isFinal = ex === null;
+  showView("result");
+  resultTitle.textContent = isFinal ? "זהו. באמת שאין טעם." : ex.t;
+  resultText.textContent = isFinal ? finalExcuse : ex.x.replace("{n}", queueNum.toLocaleString("en-US"));
+  resultIcoUse.setAttribute("href", isFinal ? "#i-phone-off" : ex.i);
+  resultIco.classList.toggle("muted", isFinal);
+  queueNum -= 1 + Math.floor(Math.random() * 2); /* התור זז. קצת. */
   if (!btnConvince.disabled) btnConvince.focus({ preventScroll: true });
   modal.classList.remove("shake");
   void modal.offsetWidth; /* מאתחל את אנימציית הרעידה מחדש */
@@ -131,20 +169,16 @@ function showResult() {
   if (attempts > 0) {
     convinceCounter.textContent = "ניסיונות שכנוע: " + attempts;
   }
-  if (usedExcuses.length >= excuses.length && resultText.textContent === finalExcuse) {
-    resultTitle.textContent = "זהו. באמת שאין טעם.";
-    resultIcoUse.setAttribute("href", "#i-phone-off");
-    resultIco.classList.add("muted");
+  if (isFinal) {
     btnConvince.disabled = true;
     btnConvince.textContent = "אין טעם. באמת.";
-    btnConvince.style.opacity = ".5";
-    btnConvince.style.cursor = "not-allowed";
   }
 }
 
-function runProcessing() {
+function runProcessing(steps, title, stepDur, onDone) {
+  document.getElementById("loadingTitle").textContent = title;
   stepsBox.innerHTML = "";
-  const stepEls = processingSteps.map(txt => {
+  const stepEls = steps.map(txt => {
     const div = document.createElement("div");
     div.className = "step";
     div.innerHTML = '<span class="step-ico"><svg class="ico step-mark" aria-hidden="true">'
@@ -155,7 +189,6 @@ function runProcessing() {
 
   stepTimers.forEach(clearTimeout);
   stepTimers = [];
-  const stepDur = 1000;
 
   stepEls.forEach((el, i) => {
     /* הפעלת שלב */
@@ -169,7 +202,7 @@ function runProcessing() {
       el.classList.add(isLast ? "fail" : "done");
       el.querySelector(".step-mark use").setAttribute("href", isLast ? "#i-x" : "#i-check");
       if (isLast) {
-        stepTimers.push(setTimeout(showResult, 650));
+        stepTimers.push(setTimeout(onDone, 650));
       }
     }, (i + 1) * stepDur + (i === stepEls.length - 1 ? 700 : 0)));
   });
@@ -179,20 +212,18 @@ document.getElementById("orderForm").addEventListener("submit", function (e) {
   e.preventDefault();
   attempts = 0;
   usedExcuses = [];
-  resultTitle.textContent = "אשתי לא מרשה לי";
+  queueNum = 12000 + Math.floor(Math.random() * 2600);
   resultIcoUse.setAttribute("href", "#i-denied");
   resultIco.classList.remove("muted");
   btnConvince.disabled = false;
   btnConvince.textContent = "נסה לשכנע אותה";
-  btnConvince.style.opacity = "";
-  btnConvince.style.cursor = "";
   convinceCounter.textContent = "";
+  clearBribe();
   overlay.classList.add("open");
   document.body.style.overflow = "hidden";
-  loadingView.style.display = "block";
-  resultView.style.display = "none";
+  showView("loading");
   modal.focus({ preventScroll: true });
-  runProcessing();
+  runProcessing(processingSteps, "מעבד את הבקשה...", 1000, showResult);
 });
 
 btnConvince.addEventListener("click", () => {
@@ -223,6 +254,16 @@ document.addEventListener("keydown", (e) => {
     "כל העובדים שלנו מתחת לגיל 18.\nבתכל'ס, גם מתחת לגיל 8",
     "מתקינים מצברים ומערכות סולאריות — ומגוון פתרונות הלכתיים לחשמל ולמים בשבת",
     "השותף הצעיר בחברה, מיכאל דויטש, בן 4. אחראי על מחלקת הפירוק",
+    "כל חיבור שמצריך 10 ברגים — אנחנו נבצע ב-100 ברגים",
+    "פשרות הם לא חלק מהאופציה אצלינו.\nזה מושלם, או לא יקרה לעולם",
+    "אנחנו מאפשרים ביקורים באתר לכל דורש או מתעניין.\nכמובן, על אחריותו הבטיחותית בלבד",
+    "מגורים באתר מותרים ואף מומלצים.\nתצפית מיוחדת בכוכבים במחיר 200 עקיצות יתושים בלבד",
+    "חוויית שיפוץ מושלמת באמצעות כלי עבודה אקראיים המונחים בכל המיקומים השימושיים בביתכם. אוכלים, ישנים ונושמים את העבודה",
+    "אנו מעניקים לצוות ימי בריאות הנפש על בסיס קבוע — בהם הוא מבצע איזו עבודה שירצה, גם אם היא לא רווחית, לא קשורה ולא מקדמת את הפרויקט",
+    "גם אחרי השלמת הבנייה נשאיר לכם צינור בולט או מקום לא צבוע, כדי שתוכלו ליהנות מהרכב העבודה לאורך שנים",
+    "לא מפונקים בכלי רכב: מאופניים ישנות, דרך רכב חבוט בלי מזגן, ועד משאית עם מנוף.\nהעבודה תבוצע באותו פרק זמן",
+    "בתכנון: קראוון מגורים ייחודי על נגרר. קמפינג אמיתי בלי להתפשר על נוחות מקסימלית",
+    "בתכנון: צימר כפרי מושקע עם כניסה פרטית, משקיף על מיטב חצרות השכנים.\nאפשרות לשירות רכבל מהבית הראשי",
   ];
 
   const pop = document.getElementById("factPop");
@@ -232,8 +273,8 @@ document.addEventListener("keydown", (e) => {
   if (!pop || !txt || !closeBtn) return;
 
   const FIRST_DELAY = 5500;  /* השהיה לפני הבועה הראשונה */
-  const VISIBLE = 9500;      /* כמה זמן היא נשארת */
-  const GAP = 11000;         /* מרווח בין בועות */
+  const VISIBLE = 8500;      /* כמה זמן היא נשארת */
+  const GAP = 9000;          /* מרווח בין בועות */
 
   let idx = 0, showTimer = null, hideTimer = null, nudgeTimer = null, stopped = false;
 
@@ -245,7 +286,8 @@ document.addEventListener("keydown", (e) => {
   function show() {
     if (stopped || idx >= facts.length) return; /* כל עובדה מוצגת פעם אחת ותו לא */
     /* לא מתחרים במודאל של הטופס — ממתינים עד שהוא נסגר */
-    if (overlay.classList.contains("open") || document.hidden) {
+    const lb = document.getElementById("lightbox");
+    if (overlay.classList.contains("open") || (lb && lb.classList.contains("open")) || document.hidden) {
       schedule(show, 4000);
       return;
     }
@@ -303,4 +345,175 @@ document.addEventListener("keydown", (e) => {
   }).observe(overlay, { attributes: true, attributeFilter: ["class"] });
 
   schedule(show, FIRST_DELAY);
+})();
+
+
+// ===== המסלול המהיר: בוחרים מה מציעים, ומקבלים "עדיין לא" =====
+/* הסדר חייב להתאים ל-data-i של הצ'יפים ב-index.html */
+const bribeReplies = [
+  "יום? אני צריך אותו לשבועיים רק בשביל להעביר את הפרגולה של אמא שלי. אבל תודה.",
+  "חודש כבר מדבר אליי. שלושה חודשים מדברים לאשתי, וזו השפה שקובעת.",
+  "מפתה מאוד. אלא שאשתי אומרת שאם יש רכב יש גם זמן, ואם יש זמן יש עוד עבודות.",
+  "רישיון יש לי. מה שאין לי זה משאית. וגם על זה, ניחשת נכון, אשתי לא מרשה.",
+  "רתכת יש. מה שנשרף בסוף זה החולצות. תביא חולצות, נדבר.",
+  "אני מעביר רהיטים גם ככה. השאלה היא של מי, ולמה זה תמיד בשבע בבוקר.",
+  "תיק חדש פירושו סידור מחדש של כל הכלים. אין לי שבוע פנוי לפרויקט הזה.",
+  "עכשיו נגעת. רגע... אשתי שואלת כמה מברגות כבר יש בבית. אז לא.",
+  "גראז' זה החלום. וגם המקום שבו אשתי תגלה כמה כלים באמת קניתי.",
+  "השעתיים האלה כבר תפוסות. הן הוקצו מראש לארון מאיקאה שבשנה השנייה להרכבה.",
+  "זה כבר לא שוחד, זה נס. ועל ניסים אני לא לוקח תשלום.",
+];
+
+const vipSteps = [
+  "מתעד את ההצעה...",
+  "מעביר לשותף הצעיר לחוות דעת...",
+  "מעריך שווי מול נזק תדמיתי...",
+  "מעביר לאישור הרשות המוסמכת (אשתי)...",
+];
+
+function clearBribe() {
+  selectedBribe = null;
+  btnBribe.disabled = true;
+  bribesBox.querySelectorAll(".bribe").forEach(b => b.setAttribute("aria-checked", "false"));
+}
+
+bribesBox.addEventListener("click", (e) => {
+  const chip = e.target.closest(".bribe");
+  if (!chip) return;
+  bribesBox.querySelectorAll(".bribe").forEach(b => b.setAttribute("aria-checked", "false"));
+  chip.setAttribute("aria-checked", "true");
+  selectedBribe = parseInt(chip.dataset.i, 10);
+  btnBribe.disabled = false;
+});
+
+btnVip.addEventListener("click", () => {
+  showView("vip");
+  bribesBox.scrollTop = 0;
+});
+
+btnVipBack.addEventListener("click", () => showView("result"));
+btnVipGiveup.addEventListener("click", closeOverlay);
+btnBribeAgain.addEventListener("click", () => {
+  clearBribe();
+  showView("vip");
+});
+
+btnBribe.addEventListener("click", () => {
+  if (selectedBribe === null) return;
+  const reply = bribeReplies[selectedBribe];
+  showView("loading");
+  runProcessing(vipSteps, "בוחן את ההצעה...", 800, () => {
+    showView("vipResult");
+    vipResultText.textContent = reply;
+    modal.classList.remove("shake");
+    void modal.offsetWidth;
+    modal.classList.add("shake");
+    btnBribeAgain.focus({ preventScroll: true });
+  });
+});
+
+// ===== חשיפת שאר ההמלצות =====
+(function () {
+  const box = document.getElementById("quotes");
+  const btn = document.getElementById("moreQuotes");
+  if (!box || !btn) return;
+  const hidden = box.querySelectorAll(".quote.extra").length;
+  const label = btn.querySelector("span");
+  label.textContent = "עוד המלצות (" + hidden + ")";
+  btn.addEventListener("click", () => {
+    const open = box.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open);
+    label.textContent = open ? "פחות המלצות" : "עוד המלצות (" + hidden + ")";
+    if (open) {
+      /* משקיף הגילוי לא חל על אלמנטים שהיו display:none — חושפים אותם ידנית, במדורג */
+      const els = box.querySelectorAll(".quote.extra");
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        els.forEach((el, i) => {
+          el.style.transitionDelay = (i * 70) + "ms";
+          el.classList.add("visible");
+          el.addEventListener("transitionend", function onEnd(ev) {
+            if (ev.propertyName !== "transform") return;
+            el.style.transitionDelay = "";
+            el.classList.add("done");
+            el.removeEventListener("transitionend", onEnd);
+          });
+        });
+      }));
+    } else {
+      document.getElementById("reviews").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+})();
+
+// ===== גלריה: לייטבוקס =====
+(function () {
+  const grid = document.getElementById("galleryGrid");
+  const lb = document.getElementById("lightbox");
+  if (!grid || !lb) return;
+  const img = document.getElementById("lbImg");
+  const cap = document.getElementById("lbCap");
+  const count = document.getElementById("lbCount");
+  const btnClose = document.getElementById("lbClose");
+  const btnPrev = document.getElementById("lbPrev");
+  const btnNext = document.getElementById("lbNext");
+  const items = Array.prototype.slice.call(grid.querySelectorAll(".gitem"));
+  let cur = 0, lastFocus = null;
+
+  function preload(i) {
+    const el = items[(i + items.length) % items.length];
+    const im = new Image();
+    im.src = el.dataset.full;
+  }
+
+  function render(i) {
+    cur = (i + items.length) % items.length;
+    const el = items[cur];
+    img.classList.remove("swap");
+    void img.offsetWidth; /* מאתחל את אנימציית ההחלפה */
+    img.classList.add("swap");
+    img.src = el.dataset.full;
+    img.alt = el.dataset.cap;
+    cap.textContent = el.dataset.cap;
+    count.textContent = (cur + 1) + " / " + items.length;
+    preload(cur + 1);
+    preload(cur - 1);
+  }
+
+  function open(i) {
+    lastFocus = document.activeElement;
+    render(i);
+    lb.classList.add("open");
+    document.body.style.overflow = "hidden";
+    btnClose.focus({ preventScroll: true });
+  }
+
+  function close() {
+    lb.classList.remove("open");
+    document.body.style.overflow = "";
+    if (lastFocus) lastFocus.focus({ preventScroll: true });
+  }
+
+  items.forEach((el, i) => el.addEventListener("click", () => open(i)));
+  btnClose.addEventListener("click", close);
+  btnPrev.addEventListener("click", () => render(cur - 1));
+  btnNext.addEventListener("click", () => render(cur + 1));
+  lb.addEventListener("mousedown", (e) => { if (e.target === lb) close(); });
+
+  document.addEventListener("keydown", (e) => {
+    if (!lb.classList.contains("open")) return;
+    if (e.key === "Escape") { close(); return; }
+    /* הדף בעברית: חץ שמאלה מתקדם, חץ ימינה חוזר */
+    if (e.key === "ArrowLeft") { e.preventDefault(); render(cur + 1); }
+    if (e.key === "ArrowRight") { e.preventDefault(); render(cur - 1); }
+  });
+
+  /* החלקה במגע */
+  let x0 = null;
+  lb.addEventListener("touchstart", (e) => { x0 = e.changedTouches[0].clientX; }, { passive: true });
+  lb.addEventListener("touchend", (e) => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 45) render(dx < 0 ? cur + 1 : cur - 1);
+    x0 = null;
+  }, { passive: true });
 })();
