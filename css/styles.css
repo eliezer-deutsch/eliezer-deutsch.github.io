@@ -811,8 +811,8 @@ textarea { resize: vertical; min-height: 90px; }
   width: min(310px, calc(100vw - 44px));
   background: var(--white);
   border-radius: 18px 18px 18px 6px;
-  padding: 14px 16px 15px;
-  box-shadow: 0 18px 45px rgba(43, 32, 19, .22), 0 2px 8px rgba(43, 32, 19, .08);
+  padding: 13px 16px 17px;
+  box-shadow: 0 20px 48px rgba(43, 32, 19, .24), 0 2px 8px rgba(43, 32, 19, .09);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -833,7 +833,7 @@ textarea { resize: vertical; min-height: 90px; }
   left: auto;
   right: 22px;
   transform-origin: top right;
-  border-radius: 6px 18px 18px 18px;
+  border-radius: 18px 6px 18px 18px;
   transform: scale(.72) translateY(-14px);
 }
 .bubble.pos-tl {
@@ -842,25 +842,42 @@ textarea { resize: vertical; min-height: 90px; }
   left: 22px;
   right: auto;
   transform-origin: top left;
-  border-radius: 18px 6px 18px 18px;
+  border-radius: 6px 18px 18px 18px;
   transform: scale(.72) translateY(-14px);
 }
 
-/* הזנב מצביע על כפתור הצ'אט, ולכן קיים רק במיקום שלידו */
+/* זנב הבועה — יש אחד בכל פינה, והוא מצביע החוצה לעבר קצה המסך */
 .bubble::after {
-  display: none;
   content: "";
   position: absolute;
-  bottom: -8px;
-  left: 20px;
   width: 18px;
   height: 18px;
   background: var(--white);
+}
+.bubble.pos-fab::after {
+  bottom: -8px; left: 20px;
   border-radius: 0 0 5px 0;
   transform: rotate(28deg) skewX(-12deg);
   box-shadow: 3px 3px 8px rgba(43, 32, 19, .07);
 }
-.bubble.pos-fab::after { display: block; }
+.bubble.pos-br::after {
+  bottom: -8px; right: 20px;
+  border-radius: 0 0 0 5px;
+  transform: rotate(-28deg) skewX(12deg);
+  box-shadow: -3px 3px 8px rgba(43, 32, 19, .07);
+}
+.bubble.pos-tr::after {
+  top: -8px; right: 20px;
+  border-radius: 5px 0 0 0;
+  transform: rotate(28deg) skewX(-12deg);
+  box-shadow: -3px -3px 8px rgba(43, 32, 19, .05);
+}
+.bubble.pos-tl::after {
+  top: -8px; left: 20px;
+  border-radius: 0 5px 0 0;
+  transform: rotate(-28deg) skewX(12deg);
+  box-shadow: 3px -3px 8px rgba(43, 32, 19, .05);
+}
 /* חייב לבוא אחרי מחלקות המיקום — אותה ספציפיות, סדר המקור מכריע */
 .bubble.show {
   opacity: 1;
@@ -886,6 +903,46 @@ textarea { resize: vertical; min-height: 90px; }
 }
 /* pre-line מכבד מעברי שורה מפורשים (\n) בתוך העובדות */
 .bubble-text { font-size: .93rem; line-height: 1.55; color: var(--ink); white-space: pre-line; }
+/* נקודת חיים ירוקה — אותו ירוק של כפתור הצ'אט */
+.bubble-live {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #25d366;
+  flex-shrink: 0;
+  margin-inline-start: -3px;
+}
+.bubble-live::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid #25d366;
+  animation: liveRing 2.4s ease-out infinite;
+}
+@keyframes liveRing {
+  from { transform: scale(.55); opacity: .6; }
+  to { transform: scale(1.3); opacity: 0; }
+}
+
+/* פס דק שמתרוקן — מראה שהבועה עומדת להיעלם */
+.bubble-bar {
+  position: absolute;
+  inset-inline: 15px;
+  bottom: 8px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(to left, var(--brand), var(--brand-light));
+  transform: scaleX(0);
+  transform-origin: right center;
+}
+.bubble.show .bubble-bar { animation: bubbleBar var(--vis, 8500ms) linear forwards; }
+@keyframes bubbleBar {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
 .bubble-x {
   width: 24px;
   height: 24px;
@@ -1210,6 +1267,8 @@ footer img { border-radius: 10px; background: var(--white); }
   .bubble, .bubble.pos-br, .bubble.pos-tr, .bubble.pos-tl { transform: none; transition: opacity .3s ease, visibility .3s; }
   .bubble.show { transform: none; }
   .chat-float.nudge::after { animation: none; }
+  .bubble-live::after { animation: none; opacity: 0; }
+  .bubble.show .bubble-bar { animation: none; transform: scaleX(1); }
   .gitem:hover, .gitem:focus-visible { transform: none; }
   .gitem img, .gitem:hover img { transition: none; transform: none; }
   .lightbox.open, .lb-fig img.swap { animation: none; }
