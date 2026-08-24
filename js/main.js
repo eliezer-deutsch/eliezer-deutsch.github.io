@@ -273,14 +273,30 @@ document.addEventListener("keydown", (e) => {
   if (!pop || !txt || !closeBtn) return;
 
   const FIRST_DELAY = 5500;  /* השהיה לפני הבועה הראשונה */
-  const VISIBLE = 8500;      /* כמה זמן היא נשארת אחרי שהטקסט מופיע */
+  const VISIBLE = 8500;      /* כמה זמן היא נשארת */
   const GAP = 9000;          /* בסיס המרווח בין בועות */
-  const TYPING = 1100;       /* פעימת "מקליד..." לפני הטקסט */
 
   /* מרווח מעט שונה בכל פעם — מרווח קבוע נקרא מכני */
   function jitter(ms) { return Math.round(ms * (0.75 + Math.random() * 0.6)); }
 
-  let idx = 0, showTimer = null, hideTimer = null, nudgeTimer = null, typeTimer = null, stopped = false;
+  /* הבועה מתחלפת בין ארבע פינות. הגרלה בלי חזרה, וגם בלי אותה פינה פעמיים ברצף. */
+  const SPOTS = ["fab", "br", "tr", "tl"];
+  let bag = [], lastSpot = null;
+
+  function nextSpot() {
+    if (!bag.length) {
+      bag = SPOTS.slice();
+      for (let i = bag.length - 1; i > 0; i--) {
+        const k = Math.floor(Math.random() * (i + 1));
+        [bag[i], bag[k]] = [bag[k], bag[i]];
+      }
+      if (bag[0] === lastSpot) [bag[0], bag[1]] = [bag[1], bag[0]];
+    }
+    lastSpot = bag.shift();
+    return lastSpot;
+  }
+
+  let idx = 0, showTimer = null, hideTimer = null, nudgeTimer = null, stopped = false;
 
   function schedule(fn, ms) {
     clearTimeout(showTimer);
@@ -295,27 +311,24 @@ document.addEventListener("keydown", (e) => {
       schedule(show, 4000);
       return;
     }
-    const fact = facts[idx];
-    /* קודם "מקליד...", ואחר כך המשפט — כמו צ'אט אמיתי */
-    txt.innerHTML = '<span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>';
-    pop.classList.add("show", "typing");
-    if (fab) {
+    txt.textContent = facts[idx];
+    const spot = nextSpot();
+    pop.classList.remove("pos-fab", "pos-br", "pos-tr", "pos-tl");
+    pop.classList.add("pos-" + spot);
+    pop.classList.add("show");
+    /* הטבעת על כפתור הצ'אט הגיונית רק כשהבועה באמת יוצאת ממנו */
+    if (fab && spot === "fab") {
       fab.classList.add("nudge");
       clearTimeout(nudgeTimer);
       nudgeTimer = setTimeout(() => fab.classList.remove("nudge"), 2600);
     }
     idx++;
     clearTimeout(hideTimer);
-    clearTimeout(typeTimer);
-    typeTimer = setTimeout(() => {
-      pop.classList.remove("typing");
-      txt.textContent = fact;
-      hideTimer = setTimeout(hide, VISIBLE);
-    }, TYPING);
+    hideTimer = setTimeout(hide, VISIBLE);
   }
 
   function hide() {
-    pop.classList.remove("show", "typing");
+    pop.classList.remove("show");
     if (!stopped && idx < facts.length) schedule(show, jitter(GAP));
   }
 
@@ -324,8 +337,7 @@ document.addEventListener("keydown", (e) => {
     clearTimeout(showTimer);
     clearTimeout(hideTimer);
     clearTimeout(nudgeTimer);
-    clearTimeout(typeTimer);
-    pop.classList.remove("show", "typing");
+    pop.classList.remove("show");
     if (fab) fab.classList.remove("nudge");
   }
 
@@ -351,8 +363,7 @@ document.addEventListener("keydown", (e) => {
   new MutationObserver(() => {
     if (overlay.classList.contains("open") && pop.classList.contains("show")) {
       clearTimeout(hideTimer);
-      clearTimeout(typeTimer);
-      pop.classList.remove("show", "typing");
+      pop.classList.remove("show");
       if (!stopped && idx < facts.length) schedule(show, jitter(GAP));
     }
   }).observe(overlay, { attributes: true, attributeFilter: ["class"] });
