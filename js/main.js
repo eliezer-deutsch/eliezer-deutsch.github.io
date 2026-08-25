@@ -69,16 +69,16 @@ function animateCounter(el) {
   clearTimeout(el._guard);
   el._guard = setTimeout(() => { if (!done) el.textContent = finalText; }, dur + 400);
 }
-/* ספירה אחת בכל כניסה לדף. ה-rootMargin השלילי דוחה את ההתחלה עד שהמספר
-   באמת בתוך המסך: בלעדיו הספירה יוצאת לדרך כשהוא רק מציץ מהקצה התחתון,
-   ומסתיימת עוד לפני שמספיקים להסתכל — ואז נראה שהמספרים סטטיים. */
+/* ספירה אחת בכל כניסה לדף. ה-rootMargin השלילי דוחה את ההתחלה עד שהמספר נכנס
+   למסך, אחרת הספירה נגמרת לפני שמספיקים להסתכל. 50px בלבד — ערך גדול יותר
+   משאיר את המספר עומד על אפס זמן מורגש, וזה נראה כאילו זה באמת אפס. */
 const counterObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (!e.isIntersecting) return;
     animateCounter(e.target);
     counterObserver.unobserve(e.target);
   });
-}, { threshold: 0.6, rootMargin: "0px 0px -140px 0px" });
+}, { threshold: 0.4, rootMargin: "0px 0px -50px 0px" });
 document.querySelectorAll(".counter").forEach(el => counterObserver.observe(el));
 
 // ===== הגימיק: "אשתי לא מרשה לי" =====
@@ -282,7 +282,7 @@ document.addEventListener("keydown", (e) => {
   const fab = document.querySelector(".chat-float");
   if (!pop || !txt || !closeBtn) return;
 
-  const FIRST_DELAY = 5500;  /* השהיה לפני הבועה הראשונה */
+  const FIRST_DELAY = 14000; /* שקט בכניסה לדף — הבועה לא קופצת על מי שרק הגיע */
   const VISIBLE = 8500;      /* כמה זמן היא נשארת */
   const GAP = 9000;          /* בסיס המרווח בין בועות */
 
@@ -453,10 +453,7 @@ function makeRail(railId, prevId, nextId, toggleId, openLabel) {
   const prev = document.getElementById(prevId);
   const next = document.getElementById(nextId);
   const toggle = document.getElementById(toggleId);
-  if (!rail || !prev || !next || !toggle) return;
-
-  const label = toggle.querySelector("span");
-  const closedLabel = label.textContent;
+  if (!rail || !prev || !next) return;
   /* ב-RTL scrollLeft של כרום יורד מאפס למינוס — לכן כל החישובים על הערך המוחלט */
   const sign = getComputedStyle(rail).direction === "rtl" ? -1 : 1;
   let anim = 0, guard = 0;
@@ -518,10 +515,11 @@ function makeRail(railId, prevId, nextId, toggleId, openLabel) {
   rail.addEventListener("scroll", sync, { passive: true });
   window.addEventListener("resize", sync);
 
-  toggle.addEventListener("click", () => {
+  if (toggle) toggle.addEventListener("click", () => {
     const open = rail.classList.toggle("open");
     toggle.setAttribute("aria-expanded", open);
-    label.textContent = open ? openLabel : closedLabel;
+    const label = toggle.querySelector("span");
+    label.textContent = open ? openLabel : label.dataset.closed || (label.dataset.closed = label.textContent);
     prev.hidden = next.hidden = open;
     if (open) {
       rail.querySelectorAll("img").forEach(im => { im.loading = "eager"; });
@@ -598,7 +596,7 @@ window.addEventListener("resize", layoutQuotes);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutQuotes);
 
 makeRail("galleryGrid", "railPrev", "railNext", "galleryToggle", "כווץ את הגלריה");
-makeRail("quotes", "quotesPrev", "quotesNext", "quotesToggle", "כווץ את ההמלצות");
+makeRail("quotes", "quotesPrev", "quotesNext", null, null);
 
 // ===== גלריה: לייטבוקס =====
 (function () {

@@ -45,7 +45,6 @@
   <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.45L12 17.45 6.2 20.5l1.1-6.45-4.7-4.6 6.5-.95z"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.8 9.5 17.8 19.5 6.8"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
-  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M12 3a6.2 6.2 0 0 1 3.7 11.2c-.75.6-1.2 1.4-1.2 2.3h-5c0-.9-.45-1.7-1.2-2.3A6.2 6.2 0 0 1 12 3z"/><path d="M9.8 19.2h4.4M10.6 21.6h2.8"/></symbol>
   <symbol id="i-denied" viewBox="0 0 100 100"><g transform="rotate(-13 50 50)"><rect x="7" y="29" width="86" height="42" rx="7" fill="none" stroke="currentColor" stroke-width="4.5"/><rect x="13.5" y="35.5" width="73" height="29" rx="3.5" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><text x="50" y="58.5" text-anchor="middle" font-size="21" font-weight="900" fill="currentColor" stroke="none" font-family="Heebo, sans-serif">נדחה</text></g></symbol>
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21.4s6.8-6.1 6.8-10.9a6.8 6.8 0 1 0-13.6 0C5.2 15.3 12 21.4 12 21.4z"/><circle cx="12" cy="10.3" r="2.6"/></symbol>
   <symbol id="i-caravan" viewBox="0 0 24 24"><rect x="2.5" y="6.2" width="17" height="9.4" rx="2.2"/><rect x="5.4" y="8.6" width="4.8" height="3.4" rx=".9"/><path d="M19.5 15.6h2.1v-4.2h-2.1"/><circle cx="8.2" cy="17.5" r="1.9"/><path d="M2.5 15.6h3.8M10.1 15.6h9.4"/></symbol>
@@ -55,7 +54,6 @@
   <symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M6.6 3.2h10.8M6.6 20.8h10.8"/><path d="M7.8 3.2v3.1c0 2 4.2 3.8 4.2 5.7s-4.2 3.7-4.2 5.7v3.1"/><path d="M16.2 3.2v3.1c0 2-4.2 3.8-4.2 5.7s4.2 3.7 4.2 5.7v3.1"/></symbol>
   <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="10.2" width="18" height="10.4" rx="1.9"/><path d="M2 10.2h20M12 10.2v10.4"/><path d="M12 10.2S10.5 4.2 8 4.2a2.4 2.4 0 0 0 0 6zM12 10.2s1.5-6 4-6a2.4 2.4 0 0 1 0 6z"/></symbol>
   <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M9.2 4.6 16.6 12l-7.4 7.4"/></symbol>
-  <symbol id="i-expand" viewBox="0 0 24 24"><path d="M4 9.4V4h5.4M20 9.4V4h-5.4M4 14.6V20h5.4M20 14.6V20h-5.4"/></symbol>
   <symbol id="i-phone-off" viewBox="0 0 24 24"><path d="M15.6 13.9a13.6 13.6 0 0 1-5.5-5.5l1.8-1.8-2.6-4H5.1a2 2 0 0 0-2 2.2 17.6 17.6 0 0 0 3.5 8.6"/><path d="M9.4 16.6a17.6 17.6 0 0 0 8.4 3.3 2 2 0 0 0 2.2-2v-4.2l-4-2.6"/><path d="M3.2 3.2 20.8 20.8"/></symbol>
 </defs></svg>
 
@@ -647,11 +645,6 @@
         <button class="rail-btn rail-prev" id="quotesPrev" type="button" aria-label="גלילה אחורה"><svg class="ico" aria-hidden="true"><use href="#i-chevron"/></svg></button>
         <button class="rail-btn rail-next" id="quotesNext" type="button" aria-label="גלילה קדימה"><svg class="ico" aria-hidden="true"><use href="#i-chevron"/></svg></button>
       </div>
-      <div class="quotes-more">
-        <button class="more-btn" id="quotesToggle" type="button" aria-expanded="false" aria-controls="quotes">
-          <span>כל 23 ההמלצות</span><svg class="ico" aria-hidden="true"><use href="#i-chevron"/></svg>
-        </button>
-      </div>
     </section>
   </div>
 </div>
@@ -663,7 +656,7 @@
     <section id="order">
       <span class="eyebrow reveal">מוכנים להתחיל?</span>
       <h2 class="reveal">הזמנת עבודה</h2>
-      <p class="sub reveal">מלאו את הפרטים ואליעזר יחזור אליכם במהירות שיא <svg class="ico ico-inline" aria-hidden="true"><use href="#i-bolt"/></svg></p>
+      <p class="sub reveal">מלאו את הפרטים ונחזור אליכם במהירות שיא <svg class="ico ico-inline" aria-hidden="true"><use href="#i-bolt"/></svg></p>
       <div class="form-wrap reveal">
         <form id="orderForm">
           <label for="name">שם מלא</label>
