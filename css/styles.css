@@ -461,6 +461,22 @@ h2 {
 .card:hover .icon { transform: scale(1.12) rotate(-7deg); }
 .card h3 { font-size: 1.15rem; font-weight: 800; margin: 12px 0 6px; }
 .card p { color: var(--muted); font-size: .95rem; }
+/* שורת הפרויקטים שממתינים לתור, בסקשן 'בתכנון' */
+.card .pending {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #e6dbc6;
+  color: var(--brand-dark);
+  font-size: .85rem;
+  font-weight: 700;
+}
+.card .pending .ico { width: 15px; height: 15px; flex-shrink: 0; margin-top: .12em; }
+/* ארבעה כרטיסים — 2x2 מתמלא יפה, בעוד גריד של שלוש משאיר אחד בודד */
+#planned .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 620px) { #planned .cards { grid-template-columns: 1fr; } }
 
 /* ===== ציר תהליך ===== */
 .timeline {
