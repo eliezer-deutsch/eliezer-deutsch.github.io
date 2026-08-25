@@ -474,6 +474,7 @@ h2 {
   font-weight: 700;
 }
 .card .pending .ico { width: 15px; height: 15px; flex-shrink: 0; margin-top: .12em; }
+.card .pending b { display: block; font-weight: 800; font-size: .76rem; color: var(--muted); margin-bottom: 1px; }
 /* ארבעה כרטיסים — 2x2 מתמלא יפה, בעוד גריד של שלוש משאיר אחד בודד */
 #planned .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 @media (max-width: 620px) { #planned .cards { grid-template-columns: 1fr; } }

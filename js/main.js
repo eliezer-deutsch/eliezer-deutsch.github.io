@@ -69,14 +69,16 @@ function animateCounter(el) {
   clearTimeout(el._guard);
   el._guard = setTimeout(() => { if (!done) el.textContent = finalText; }, dur + 400);
 }
-/* ספירה אחת בכל כניסה לדף, כשהמספרים מגיעים למסך */
+/* ספירה אחת בכל כניסה לדף. ה-rootMargin השלילי דוחה את ההתחלה עד שהמספר
+   באמת בתוך המסך: בלעדיו הספירה יוצאת לדרך כשהוא רק מציץ מהקצה התחתון,
+   ומסתיימת עוד לפני שמספיקים להסתכל — ואז נראה שהמספרים סטטיים. */
 const counterObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (!e.isIntersecting) return;
     animateCounter(e.target);
     counterObserver.unobserve(e.target);
   });
-}, { threshold: 0.6 });
+}, { threshold: 0.6, rootMargin: "0px 0px -140px 0px" });
 document.querySelectorAll(".counter").forEach(el => counterObserver.observe(el));
 
 // ===== הגימיק: "אשתי לא מרשה לי" =====
@@ -262,7 +264,7 @@ document.addEventListener("keydown", (e) => {
   const facts = [
     "חלק ממחיר עבודת ריתוך הוא חולצת טריקו חדשה, שרוול ארוך!",
     "כל העובדים שלנו מתחת לגיל 18.\nבתכל'ס, גם מתחת לגיל 8",
-    "מענה 24/7 בנושא פתרונות חשמל ומים כשרים בשבת. ברצינות — גם דקה לפני השקיעה, ואפילו לפני הקידוש בבוקר בשבועות",
+    "מענה 24/7 בנושא פתרונות חשמל ומים כשרים בשבת, ברצינות, גם דקה לפני השקיעה ואפילו לפני הקידוש בבוקר בשבועות.",
     "השותף הצעיר בחברה, מיכאל דויטש, בן 4. אחראי על מחלקת הפירוק",
     "כל חיבור שמצריך 10 ברגים — אנחנו נבצע ב-100 ברגים",
     "פשרות הם לא חלק מהאופציה אצלינו.\nזה מושלם, או לא יקרה לעולם",
