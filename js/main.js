@@ -69,27 +69,15 @@ function animateCounter(el) {
   clearTimeout(el._guard);
   el._guard = setTimeout(() => { if (!done) el.textContent = finalText; }, dur + 400);
 }
-/* בקשת הלקוחה: הספירה חוזרת בלופ כל עוד המספרים על המסך, ולא פעם אחת בלבד */
-const COUNTER_LOOP = 7000;
-const counterTimers = new WeakMap();
+/* ספירה אחת בכל כניסה לדף, כשהמספרים מגיעים למסך */
 const counterObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
-    clearInterval(counterTimers.get(e.target));
     if (!e.isIntersecting) return;
     animateCounter(e.target);
-    counterTimers.set(e.target, setInterval(() => animateCounter(e.target), COUNTER_LOOP));
+    counterObserver.unobserve(e.target);
   });
 }, { threshold: 0.6 });
 document.querySelectorAll(".counter").forEach(el => counterObserver.observe(el));
-
-/* חוזרים ללשונית -> ספירה רעננה למה שנראה כרגע */
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) return;
-  document.querySelectorAll(".counter").forEach(el => {
-    const r = el.getBoundingClientRect();
-    if (r.top < window.innerHeight && r.bottom > 0) animateCounter(el);
-  });
-});
 
 // ===== הגימיק: "אשתי לא מרשה לי" =====
 const processingSteps = [
@@ -116,10 +104,10 @@ const excuses = [
   { t: "יש אנשים לפניך", i: "#i-hourglass", x: "לפניך {n} פונים. לצערינו שמירת פרטי הפונים מסובכת מדי בשבילינו, תצטרך להמשיך לפנות מידי שבוע אם תרצה שאי פעם נתפנה אליך." },
   { t: "עומס חריג", i: "#i-hourglass", x: "היום התקבלו 41 פניות. ענינו לאחת — וגם עליה עדיין אין תשובה סופית." },
   { t: "בטיפול", i: "#i-hourglass", x: "הבקשה שלך במקום {n}, ומטופלת לפי סדר הגעה. את הסדר אנחנו קובעים, וזה לא בהכרח סדר הגעה." },
-  { t: "תלוי איפה", i: "#i-pin", x: "בגבעת המורה? פחות...." },
-  { t: "לא לוקח אחריות", i: "#i-drop", x: "אתה רוצה דוד של אלף ליטר? אני לא לוקח אחריות על כאלה דברים." },
-  { t: "יש לי מספרים בשבילך", i: "#i-clipboard", x: "אני יכול לתת לך מספרים של אנשים אחרים שעושים כאלה דברים: אלחנן פוזן, דוד ברנד... אה, כבר פנית אליהם? הבנתי..." },
-  { t: "אולי, בתנאי אחד", i: "#i-clock", x: "אולי אם תיקח אותי טרמפ הלוך חזור זה אפשרי, אחרי בירור, עדיין לא." },
+  { t: "", i: "#i-pin", x: "בגבעת המורה? פחות...." },
+  { t: "", i: "#i-drop", x: "אתה רוצה דוד של אלף ליטר? אני לא לוקח אחריות על כאלה דברים." },
+  { t: "", i: "#i-clipboard", x: "אני יכול לתת לך מספרים של אנשים אחרים שעושים כאלה דברים: אלחנן פוזן, דוד ברנד... אה, כבר פנית אליהם? הבנתי..." },
+  { t: "", i: "#i-clock", x: "אולי אם תיקח אותי טרמפ הלוך חזור זה אפשרי, אחרי בירור, עדיין לא." },
 ];
 const WIFE_COUNT = 7;
 
@@ -177,7 +165,9 @@ function showResult() {
   const ex = pickExcuse();
   const isFinal = ex === null;
   showView("result");
-  resultTitle.textContent = isFinal ? "זהו. באמת שאין טעם." : ex.t;
+  const title = isFinal ? "זהו. באמת שאין טעם." : ex.t;
+  resultTitle.textContent = title;
+  resultTitle.hidden = !title; /* תירוץ בלי כותרת מציג רק את האייקון והטקסט */
   resultText.textContent = isFinal ? finalExcuse : ex.x.replace("{n}", queueNum.toLocaleString("en-US"));
   resultIcoUse.setAttribute("href", isFinal ? "#i-phone-off" : ex.i);
   resultIco.classList.toggle("muted", isFinal);
@@ -455,18 +445,19 @@ btnBribe.addEventListener("click", () => {
   });
 });
 
-// ===== גלריה: פס נגלל + פתיחה לגריד מלא =====
-(function () {
-  const rail = document.getElementById("galleryGrid");
-  const prev = document.getElementById("railPrev");
-  const next = document.getElementById("railNext");
-  const toggle = document.getElementById("galleryToggle");
+// ===== פס נגלל (גלריה והמלצות) =====
+function makeRail(railId, prevId, nextId, toggleId, openLabel) {
+  const rail = document.getElementById(railId);
+  const prev = document.getElementById(prevId);
+  const next = document.getElementById(nextId);
+  const toggle = document.getElementById(toggleId);
   if (!rail || !prev || !next || !toggle) return;
 
   const label = toggle.querySelector("span");
   const closedLabel = label.textContent;
   /* ב-RTL scrollLeft של כרום יורד מאפס למינוס — לכן כל החישובים על הערך המוחלט */
   const sign = getComputedStyle(rail).direction === "rtl" ? -1 : 1;
+  let anim = 0, guard = 0;
 
   function step() {
     return Math.max(rail.clientWidth * 0.8, 240);
@@ -483,8 +474,6 @@ btnBribe.addEventListener("click", () => {
   /* scrollBy/scrollTo עם behavior:"smooth" נעצרים אחרי כמה עשרות פיקסלים כשה-scroll-snap
      פעיל ב-RTL, ולכן מנפישים כאן ידנית: הצמדה מכובה לאורך התנועה ומוחזרת בסופה.
      ה-timeout הוא רשת ביטחון למקרה שהדפדפן לא מספק פריימים (לשונית ברקע). */
-  let anim = 0, guard = 0;
-
   function animateTo(target) {
     const from = rail.scrollLeft;
     const dist = target - from;
@@ -495,14 +484,14 @@ btnBribe.addEventListener("click", () => {
     cancelAnimationFrame(anim);
     clearTimeout(guard);
 
+    function finish() {
+      rail.style.scrollSnapType = "";
+      sync();
+    }
     function tick(now) {
       const p = Math.min((now - t0) / dur, 1);
       rail.scrollLeft = from + dist * (1 - Math.pow(1 - p, 3));
       if (p < 1) anim = requestAnimationFrame(tick); else finish();
-    }
-    function finish() {
-      rail.style.scrollSnapType = "";
-      sync();
     }
     anim = requestAnimationFrame(tick);
     guard = setTimeout(() => {
@@ -530,20 +519,22 @@ btnBribe.addEventListener("click", () => {
   toggle.addEventListener("click", () => {
     const open = rail.classList.toggle("open");
     toggle.setAttribute("aria-expanded", open);
-    label.textContent = open ? "כווץ את הגלריה" : closedLabel;
+    label.textContent = open ? openLabel : closedLabel;
     prev.hidden = next.hidden = open;
     if (open) {
-      /* כל התמונות נחשפות בבת אחת — מוותרים על הטעינה העצלה כדי שלא ייפתחו ריקים */
       rail.querySelectorAll("img").forEach(im => { im.loading = "eager"; });
     } else {
       rail.scrollLeft = 0;
-      document.getElementById("gallery").scrollIntoView({ behavior: "smooth", block: "start" });
+      rail.closest("section").scrollIntoView({ behavior: "smooth", block: "start" });
       sync();
     }
   });
 
   sync();
-})();
+}
+
+makeRail("galleryGrid", "railPrev", "railNext", "galleryToggle", "כווץ את הגלריה");
+makeRail("quotes", "quotesPrev", "quotesNext", "quotesToggle", "כווץ את ההמלצות");
 
 // ===== גלריה: לייטבוקס =====
 (function () {

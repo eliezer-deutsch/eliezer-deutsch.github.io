@@ -282,7 +282,7 @@
       <span class="eyebrow reveal">מהשטח</span>
       <h2 class="reveal">גלריית פרויקטים</h2>
       <p class="sub reveal">תיעוד מלא של כל שלב — כולל השלבים שקבלנים אחרים לא מצלמים</p>
-      <div class="gallery-rail">
+      <div class="rail-wrap">
         <div class="gallery" id="galleryGrid">
           <button class="gitem wide" type="button" data-full="assets/gallery/g01.webp" data-cap="לפני ואחרי">
             <img src="assets/gallery/g01-t.webp" width="760" height="517" alt="לפני ואחרי" loading="lazy" decoding="async">
@@ -389,7 +389,8 @@
       <span class="eyebrow reveal">המלצות</span>
       <h2 class="reveal">מה אומרים עלינו</h2>
       <p class="sub reveal">כמה מילים ממי שכבר בנה איתנו</p>
-      <div class="quotes" id="quotes">
+      <div class="rail-wrap">
+        <div class="quotes" id="quotes">
         <div class="quote reveal">
           <div class="stars" aria-label="חמישה כוכבים מתוך חמישה">
             <svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>
@@ -643,6 +644,14 @@
           <p>המלצה חמה —<br>על איש עפולה גבה קומה<br>ידיו רב לו בכל חכמה<br>וכל ביצוע — ברמה<br><br>קחו אותו לעבודה קטנה<br>וקבלו אחריות למאה שנה<br>יענה, יסביר, יתן הכוונה<br>כי אכפת לו באמת — המטבע לא משנה...<br>במקום שאין אנשים הוא הדמות הנכונה<br>ובכל שעת צורך ישלוף אמירה שנונה<br>ברכות לעוד 93 שנות עשיה ברוכה ובונה<br>מלאות אושר שמחה ורננה.</p>
           <div class="quote-footer"><span class="avatar">ש</span><span class="who">שרה יונגרמן<small>מודיעין עילית</small></span></div>
         </div>
+        </div>
+        <button class="rail-btn rail-prev" id="quotesPrev" type="button" aria-label="גלילה אחורה"><svg class="ico" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+        <button class="rail-btn rail-next" id="quotesNext" type="button" aria-label="גלילה קדימה"><svg class="ico" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+      </div>
+      <div class="quotes-more">
+        <button class="more-btn" id="quotesToggle" type="button" aria-expanded="false" aria-controls="quotes">
+          <span>כל 23 ההמלצות</span><svg class="ico" aria-hidden="true"><use href="#i-chevron"/></svg>
+        </button>
       </div>
     </section>
   </div>
