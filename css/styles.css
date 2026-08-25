@@ -518,12 +518,17 @@ h2 {
 .tl-step p { color: var(--muted); font-size: .92rem; }
 
 /* ===== המלצות ===== */
-/* פאזל אופקי: עמודות רב-טוריות בגובה קבוע. כשעמודה מתמלאת נפתחת אחת נוספת
-   הצידה, ולכן מתחת להמלצה קצרה מתיישבת עוד אחת במקום שטח מת. */
+/* פאזל אופקי סימטרי: שש יחידות שורה שוות, וכל כרטיס תופס את מספר היחידות
+   הקטן ביותר שמכיל אותו (נקבע ב-JS). ביחידות גסות יותר שתי המלצות בינוניות
+   לא נכנסות יחד ונשאר תא ריק; בשש הן מצטרפות ל-2+4, 3+3 או 2+2+2, וכל
+   העמודות נגמרות באותו קו. */
 .quotes {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(6, 1fr);
+  grid-auto-columns: 300px;
+  gap: 18px;
   height: 720px;
-  columns: 300px;
-  column-gap: 18px;
   overflow-x: auto;
   overflow-y: hidden;
   overscroll-behavior-x: contain;
@@ -531,24 +536,27 @@ h2 {
   scrollbar-width: thin;
   scrollbar-color: var(--brand-light) transparent;
 }
+/* הכרטיס ממלא את התא שהוקצה לו, ושם הממליץ נעוץ בתחתיתו */
+.quotes:not(.open) .quote { margin: 0; display: flex; flex-direction: column; overflow: hidden; }
 .quotes::-webkit-scrollbar { height: 8px; }
 .quotes::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
 .quotes::-webkit-scrollbar-track { background: transparent; }
 .quotes::-webkit-scrollbar-thumb { background: var(--brand-light); border-radius: 99px; }
 .quotes::-webkit-scrollbar-thumb:hover { background: var(--brand); }
-.quotes.open { height: auto; columns: 3 258px; overflow: visible; padding: 2px; }
+.quotes.open { display: block; height: auto; columns: 3 258px; column-gap: 18px; overflow: visible; padding: 2px; }
+.quotes.open .quote { break-inside: avoid; margin: 0 0 18px; }
 .quote {
   background: var(--white);
   border-radius: 18px;
   padding: 24px 22px;
   box-shadow: var(--shadow-sm);
   position: relative;
-  break-inside: avoid;
-  margin: 0 0 18px;
 }
-/* שתיים-שלוש המלצות ארוכות במיוחד לא יגלשו מגובה העמודה */
+/* הטקסט תופס את מה שנשאר בתא, וההמלצות הארוכות נגללות בתוכו */
 .quotes:not(.open) .quote p {
-  max-height: 520px;
+  flex: 1;
+  min-height: 0;
+  max-height: 540px;
   overflow-y: auto;
   padding-inline-end: 6px;
   scrollbar-width: thin;
@@ -1291,8 +1299,8 @@ footer img { border-radius: 10px; background: var(--white); }
   .lb-cap { font-size: .9rem; }
   .lb-fig img { max-height: calc(100vh - 150px); }
   .bribes { max-height: 34vh; }
-  .quotes { height: 620px; columns: 260px; }
-  .quotes:not(.open) .quote p { max-height: 420px; }
+  .quotes { height: 624px; grid-auto-columns: 260px; }
+  .quotes:not(.open) .quote p { max-height: 440px; }
 }
 @media (max-width: 560px) {
   .bubble { left: 14px; right: auto; width: calc(100vw - 28px); bottom: 88px; }

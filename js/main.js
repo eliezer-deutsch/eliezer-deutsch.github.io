@@ -527,6 +527,7 @@ function makeRail(railId, prevId, nextId, toggleId, openLabel) {
       rail.querySelectorAll("img").forEach(im => { im.loading = "eager"; });
     } else {
       rail.scrollLeft = 0;
+      if (railId === "quotes") layoutQuotes();
       rail.closest("section").scrollIntoView({ behavior: "smooth", block: "start" });
       sync();
     }
@@ -534,6 +535,67 @@ function makeRail(railId, prevId, nextId, toggleId, openLabel) {
 
   sync();
 }
+
+/* פורס את ההמלצות לעמודות בעצמנו במקום להשאיר את זה ל-grid-auto-flow.
+   הדחיסה האוטומטית היא first-fit חמדני ומשאירה עמודות חלקיות, ואילו כאן
+   כל כרטיס מקבל מקום מפורש, והכרטיס האחרון בכל עמודה נמתח על השארית —
+   כך שכל העמודות נגמרות בדיוק באותו קו. */
+const QUOTE_ROWS = 6;
+
+function layoutQuotes() {
+  const box = document.getElementById("quotes");
+  if (!box || box.classList.contains("open")) return;
+  const cards = [...box.querySelectorAll(".quote")];
+  if (!cards.length) return;
+
+  const cs = getComputedStyle(box);
+  const gap = parseFloat(cs.rowGap) || 18;
+  const inner = box.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+  const unit = (inner - gap * (QUOTE_ROWS - 1)) / QUOTE_ROWS;
+
+  /* מדידה בגובה טבעי */
+  cards.forEach(el => {
+    el.style.gridColumn = "";
+    el.style.gridRow = "";
+    el.style.gridRowEnd = "span " + QUOTE_ROWS;
+    el.style.alignSelf = "start";
+  });
+  const spans = cards.map(el => {
+    const h = el.getBoundingClientRect().height;
+    let n = 1;
+    while (n < QUOTE_ROWS && unit * n + gap * (n - 1) < h - 0.5) n++;
+    return n;
+  });
+
+  /* first-fit: כל כרטיס לעמודה הראשונה שיש בה מקום. שומר בערך על סדר הקריאה
+     ומצמצם שאריות. */
+  const cols = [];
+  const placed = cards.map((el, i) => {
+    let c = cols.findIndex(used => used + spans[i] <= QUOTE_ROWS);
+    if (c === -1) { c = cols.length; cols.push(0); }
+    const row = cols[c] + 1;
+    cols[c] += spans[i];
+    return { el, col: c, row, span: spans[i] };
+  });
+
+  /* השארית בתחתית כל עמודה נבלעת בכרטיס האחרון שבה */
+  const lastInCol = new Map();
+  placed.forEach(p => lastInCol.set(p.col, p));
+  lastInCol.forEach((p, c) => {
+    const left = QUOTE_ROWS - cols[c];
+    if (left > 0) p.span += left;
+  });
+
+  placed.forEach(p => {
+    p.el.style.alignSelf = "";
+    p.el.style.gridColumn = String(p.col + 1);
+    p.el.style.gridRow = p.row + " / span " + p.span;
+  });
+}
+
+layoutQuotes();
+window.addEventListener("resize", layoutQuotes);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutQuotes);
 
 makeRail("galleryGrid", "railPrev", "railNext", "galleryToggle", "כווץ את הגלריה");
 makeRail("quotes", "quotesPrev", "quotesNext", "quotesToggle", "כווץ את ההמלצות");
