@@ -518,14 +518,15 @@ h2 {
 .tl-step p { color: var(--muted); font-size: .92rem; }
 
 /* ===== המלצות ===== */
-/* ברירת מחדל: פס אופקי. כל הכרטיסים באותו גובה, ולכן הסקשן נשאר קומפקטי */
+/* פאזל אופקי: עמודות רב-טוריות בגובה קבוע. כשעמודה מתמלאת נפתחת אחת נוספת
+   הצידה, ולכן מתחת להמלצה קצרה מתיישבת עוד אחת במקום שטח מת. */
 .quotes {
-  display: flex;
-  align-items: stretch;
-  gap: 18px;
+  height: 720px;
+  columns: 300px;
+  column-gap: 18px;
   overflow-x: auto;
+  overflow-y: hidden;
   overscroll-behavior-x: contain;
-  scroll-snap-type: x proximity;
   padding: 2px 2px 14px;
   scrollbar-width: thin;
   scrollbar-color: var(--brand-light) transparent;
@@ -535,25 +536,19 @@ h2 {
 .quotes::-webkit-scrollbar-track { background: transparent; }
 .quotes::-webkit-scrollbar-thumb { background: var(--brand-light); border-radius: 99px; }
 .quotes::-webkit-scrollbar-thumb:hover { background: var(--brand); }
-.quotes.open { display: block; columns: 3 258px; column-gap: 18px; overflow: visible; padding: 2px; }
+.quotes.open { height: auto; columns: 3 258px; overflow: visible; padding: 2px; }
 .quote {
   background: var(--white);
   border-radius: 18px;
   padding: 24px 22px;
   box-shadow: var(--shadow-sm);
   position: relative;
-  flex: 0 0 min(340px, 78vw);
-  scroll-snap-align: start;
-  display: flex;
-  flex-direction: column;
+  break-inside: avoid;
+  margin: 0 0 18px;
 }
-.quotes.open .quote { flex: none; display: block; break-inside: avoid; margin: 0 0 18px; }
-/* בפס לכל הכרטיסים גובה אחיד. בלי תקרה הם היו נמתחים לגובה ההמלצה הארוכה ביותר
-   ומשאירים שטח ריק ענק סביב משפט אחד; הטקסטים הארוכים נגללים בתוך הכרטיס. */
-.quotes:not(.open) .quote { height: 340px; }
+/* שתיים-שלוש המלצות ארוכות במיוחד לא יגלשו מגובה העמודה */
 .quotes:not(.open) .quote p {
-  flex: 1;
-  min-height: 0;
+  max-height: 520px;
   overflow-y: auto;
   padding-inline-end: 6px;
   scrollbar-width: thin;
@@ -1296,6 +1291,8 @@ footer img { border-radius: 10px; background: var(--white); }
   .lb-cap { font-size: .9rem; }
   .lb-fig img { max-height: calc(100vh - 150px); }
   .bribes { max-height: 34vh; }
+  .quotes { height: 620px; columns: 260px; }
+  .quotes:not(.open) .quote p { max-height: 420px; }
 }
 @media (max-width: 560px) {
   .bubble { left: 14px; right: auto; width: calc(100vw - 28px); bottom: 88px; }
