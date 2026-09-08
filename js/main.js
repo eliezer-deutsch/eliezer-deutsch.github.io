@@ -621,11 +621,13 @@ makeRail("quotes", "quotesPrev", "quotesNext", null, null);
   function render(i) {
     cur = (i + items.length) % items.length;
     const el = items[cur];
+    /* המקור מוחלף לפני הפעלת האנימציה, אחרת האנימציה רצה על התמונה הישנה
+       והדפדפן מצייר פריים ישן בזמן שהחדש כבר נטען */
+    img.src = el.dataset.full;
+    img.alt = el.dataset.cap;
     img.classList.remove("swap");
     void img.offsetWidth; /* מאתחל את אנימציית ההחלפה */
     img.classList.add("swap");
-    img.src = el.dataset.full;
-    img.alt = el.dataset.cap;
     cap.textContent = el.dataset.cap;
     count.textContent = (cur + 1) + " / " + items.length;
     preload(cur + 1);

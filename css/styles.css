@@ -1162,9 +1162,10 @@ footer img { border-radius: 10px; background: var(--white); }
   align-items: center;
   justify-content: center;
   padding: 60px 18px 30px;
-  background: rgba(18, 13, 5, .95);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  /* רקע אטום ובלי backdrop-filter: השכבה שהוא יוצר לא תמיד מתרעננת בכרום,
+     והתמונה נשארת תקועה על הפריים הקודם בזמן שהכיתוב כבר התחלף.
+     ב-95% אטימות הטשטוש ממילא לא נראה, אז אין מה להפסיד. */
+  background: #120d05;
 }
 .lightbox.open { display: flex; animation: lbIn .22s ease both; }
 @keyframes lbIn { from { opacity: 0; } to { opacity: 1; } }
