@@ -228,7 +228,7 @@ document.getElementById("orderForm").addEventListener("submit", function (e) {
   resultIcoUse.setAttribute("href", "#i-denied");
   resultIco.classList.remove("muted");
   btnConvince.disabled = false;
-  btnConvince.textContent = "נסה לשכנע אותה";
+  btnConvince.textContent = "נסה לשכנע אותנו";
   convinceCounter.textContent = "";
   clearBribe();
   overlay.classList.add("open");
